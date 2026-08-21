@@ -42,14 +42,3 @@ sol-led-relay/
 复制前先检查目标项目是否已有同名 Agent 或 Skill；不要覆盖无法确认来源的文件。配置新增后，在新的 Codex task 中验证实际发现、模型、reasoning effort、sandbox 和可见工具。
 
 如果目标项目使用自己的 Skill 安装器或 Junction 约定，应将 `skills/sol-led-relay` 作为唯一源目录接入该安装流程；不要覆盖或复制来源不明的现有 Junction。
-
-## 验证
-
-在本仓库根目录运行：
-
-```powershell
-python -X utf8 skills/sol-led-relay/scripts/validate_sol_led_relay.py
-python -m unittest discover -s tests -p "test_*.py" -v
-```
-
-静态通过不等于有效只读隔离。安装后仍需在目标项目的隔离 fixture 中执行 `skills/sol-led-relay/references/evaluation.md` 规定的 fresh-session 权限探针；若 read-only profile 可以产生写入，结果必须记录为 `NOT_ENFORCED`。
