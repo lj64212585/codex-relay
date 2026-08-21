@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Sol-led Relay routing board</title>
+  <desc id="desc">父级 Sol 先判断是否值得委派，再把有界任务分流给 Explorer、Executor 或 Reviewer，最后接收结果并自行验证、集成与交付。</desc>
+
+  <rect width="1200" height="620" rx="28" fill="#0A0C0F"/>
+  <rect x="1" y="1" width="1198" height="618" rx="27" fill="none" stroke="#2B3138" stroke-width="2"/>
+
+  <g id="heading" transform="translate(56 48)">
+    <text x="0" y="0" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" letter-spacing="2">ROUTING BOARD / 01</text>
+    <text x="0" y="52" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif" font-size="42" font-weight="750">只把有边界的工作送上回路</text>
+    <text x="0" y="88" fill="#89939D" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif" font-size="20">产品决策、跨域取舍、共享文件协调与最终交付始终留在父级 Sol。</text>
+  </g>
+
+  <g id="source" transform="translate(56 190)">
+    <rect width="220" height="138" rx="16" fill="#15191E" stroke="#F5B942" stroke-width="2"/>
+    <circle cx="34" cy="35" r="9" fill="#F5B942"/>
+    <text x="58" y="43" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24" font-weight="700">PARENT SOL</text>
+    <text x="28" y="84" fill="#AAB2BA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">CLASSIFY</text>
+    <text x="28" y="111" fill="#AAB2BA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">FREEZE SCOPE</text>
+  </g>
+
+  <path d="M276 259H330" stroke="#F5B942" stroke-width="3"/>
+  <circle cx="344" cy="259" r="12" fill="#0A0C0F" stroke="#F5B942" stroke-width="3"/>
+  <path d="M356 259H398" stroke="#F5B942" stroke-width="3"/>
+  <text x="344" y="300" text-anchor="middle" fill="#89939D" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">USEFUL?</text>
+
+  <path d="M398 259V175H438" fill="none" stroke="#54606A" stroke-width="2"/>
+  <path d="M398 259H438" stroke="#54606A" stroke-width="2"/>
+  <path d="M398 259V414H438" fill="none" stroke="#54606A" stroke-width="2"/>
+
+  <g id="explore" transform="translate(438 142)">
+    <rect width="470" height="96" rx="15" fill="#12161A" stroke="#39434C" stroke-width="2"/>
+    <rect width="8" height="96" rx="4" fill="#6DD6C3"/>
+    <text x="30" y="34" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="750">EXPLORE</text>
+    <text x="430" y="34" text-anchor="end" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20">04 / READ</text>
+    <text x="30" y="68" fill="#AAB2BA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">code · docs · runtime · deep runtime</text>
+  </g>
+
+  <g id="execute" transform="translate(438 254)">
+    <rect width="470" height="96" rx="15" fill="#12161A" stroke="#39434C" stroke-width="2"/>
+    <rect width="8" height="96" rx="4" fill="#F5B942"/>
+    <text x="30" y="34" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="750">EXECUTE</text>
+    <text x="430" y="34" text-anchor="end" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20">03 / WRITE</text>
+    <text x="30" y="68" fill="#AAB2BA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">mechanical · minimal fix · bounded slice</text>
+  </g>
+
+  <g id="review" transform="translate(438 366)">
+    <rect width="470" height="96" rx="15" fill="#12161A" stroke="#39434C" stroke-width="2"/>
+    <rect width="8" height="96" rx="4" fill="#6DD6C3"/>
+    <text x="30" y="34" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="750">REVIEW</text>
+    <text x="430" y="34" text-anchor="end" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20">02 / READ</text>
+    <text x="30" y="68" fill="#AAB2BA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">code findings · acceptance evidence</text>
+  </g>
+
+  <path d="M908 190H962V302" fill="none" stroke="#54606A" stroke-width="2"/>
+  <path d="M908 302H962" stroke="#54606A" stroke-width="2"/>
+  <path d="M908 414H962V302" fill="none" stroke="#54606A" stroke-width="2"/>
+  <circle cx="962" cy="302" r="7" fill="#F5B942"/>
+  <path d="M969 302H1002" stroke="#F5B942" stroke-width="3"/>
+
+  <g id="return" transform="translate(1002 222)">
+    <rect width="142" height="160" rx="16" fill="#15191E" stroke="#F5B942" stroke-width="2"/>
+    <text x="71" y="36" text-anchor="middle" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">RETURN</text>
+    <text x="71" y="67" text-anchor="middle" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="700">EVIDENCE</text>
+    <path d="M30 88H112" stroke="#3B444D" stroke-width="2"/>
+    <text x="71" y="116" text-anchor="middle" fill="#AAB2BA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17">CHECK</text>
+    <text x="71" y="142" text-anchor="middle" fill="#AAB2BA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17">INTEGRATE</text>
+  </g>
+
+  <g id="footer" transform="translate(56 534)">
+    <path d="M0 0H1088" stroke="#2B3138" stroke-width="2"/>
+    <circle cx="8" cy="42" r="7" fill="#6DD6C3"/>
+    <text x="30" y="49" fill="#D5D9DC" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif" font-size="20">子 Agent 提供证据；父级 Sol 决定是否接受，并完成最终验证、集成与交付。</text>
+    <text x="1088" y="49" text-anchor="end" fill="#89939D" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">PARENT-OWNED GATE</text>
+  </g>
+</svg>

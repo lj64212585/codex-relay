@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Sol-led Relay</title>
+  <desc id="desc">A Codex multi-agent routing package where parent Sol controls bounded work across Explore, Execute, and Review lanes.</desc>
+
+  <defs>
+    <pattern id="trace-grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#242A30" stroke-width="1" opacity="0.45"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="420" rx="28" fill="#0A0C0F"/>
+  <rect x="1" y="1" width="1198" height="418" rx="27" fill="none" stroke="#2B3138" stroke-width="2"/>
+  <rect width="1200" height="420" rx="28" fill="url(#trace-grid)"/>
+
+  <g id="identity" transform="translate(64 54)">
+    <g aria-label="project category">
+      <circle cx="7" cy="7" r="7" fill="#F5B942"/>
+      <path d="M20 7H42" stroke="#F5B942" stroke-width="2"/>
+      <text x="54" y="13" fill="#AAB2BA" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18" letter-spacing="2">CODEX MULTI-AGENT ROUTING</text>
+    </g>
+
+    <text x="0" y="106" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="68" font-weight="750" letter-spacing="-2">Sol-led</text>
+    <text x="0" y="174" fill="none" stroke="#F5B942" stroke-width="2" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="68" font-weight="750" letter-spacing="5">RELAY</text>
+
+    <text x="2" y="224" fill="#D5D9DC" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24" font-weight="500">Sol keeps the decisions.</text>
+    <text x="2" y="258" fill="#D5D9DC" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24" font-weight="500">Bounded work moves through dedicated lanes.</text>
+
+    <g transform="translate(0 305)" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="18">
+      <text x="0" y="0" fill="#F5B942">09</text>
+      <text x="30" y="0" fill="#89939D">PROFILES</text>
+      <text x="144" y="0" fill="#3B434B">/</text>
+      <text x="166" y="0" fill="#F5B942">03</text>
+      <text x="196" y="0" fill="#89939D">LANES</text>
+      <text x="283" y="0" fill="#3B434B">/</text>
+      <text x="305" y="0" fill="#6DD6C3">SOL</text>
+      <text x="346" y="0" fill="#89939D">OWNS INTEGRATION</text>
+    </g>
+  </g>
+
+  <path d="M630 44V376" stroke="#2B3138" stroke-width="2"/>
+
+  <g id="relay-board" transform="translate(672 44)">
+    <g id="controller">
+      <rect x="0" y="0" width="446" height="74" rx="14" fill="#13171B" stroke="#363E46" stroke-width="2"/>
+      <circle cx="38" cy="37" r="17" fill="#F5B942"/>
+      <circle cx="38" cy="37" r="6" fill="#0A0C0F"/>
+      <text x="72" y="31" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="22" font-weight="700">PARENT SOL</text>
+      <text x="72" y="55" fill="#89939D" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="16">DECIDE · DISPATCH · INTEGRATE</text>
+      <path d="M374 37H402" stroke="#F5B942" stroke-width="3"/>
+      <circle cx="416" cy="37" r="6" fill="#F5B942"/>
+    </g>
+
+    <path d="M38 74V312" stroke="#F5B942" stroke-width="3"/>
+
+    <g id="explore-lane" transform="translate(0 102)">
+      <circle cx="38" cy="34" r="7" fill="#F5B942"/>
+      <path d="M45 34H86" stroke="#F5B942" stroke-width="3"/>
+      <path d="M86 34L114 17" stroke="#F5B942" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="122" cy="12" r="6" fill="#6DD6C3"/>
+      <rect x="142" y="0" width="304" height="68" rx="12" fill="#111519" stroke="#343C44" stroke-width="2"/>
+      <text x="164" y="29" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="21" font-weight="700">EXPLORE</text>
+      <text x="402" y="29" text-anchor="end" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20">×4</text>
+      <text x="164" y="52" fill="#89939D" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17">CODE · DOCS · RUNTIME</text>
+    </g>
+
+    <g id="execute-lane" transform="translate(0 186)">
+      <circle cx="38" cy="34" r="7" fill="#F5B942"/>
+      <path d="M45 34H86" stroke="#F5B942" stroke-width="3"/>
+      <path d="M86 34L114 17" stroke="#F5B942" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="122" cy="12" r="6" fill="#F5B942"/>
+      <rect x="142" y="0" width="304" height="68" rx="12" fill="#111519" stroke="#343C44" stroke-width="2"/>
+      <text x="164" y="29" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="21" font-weight="700">EXECUTE</text>
+      <text x="402" y="29" text-anchor="end" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20">×3</text>
+      <text x="164" y="52" fill="#89939D" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17">OWNED FILES · CHECKS</text>
+    </g>
+
+    <g id="review-lane" transform="translate(0 270)">
+      <circle cx="38" cy="34" r="7" fill="#F5B942"/>
+      <path d="M45 34H86" stroke="#F5B942" stroke-width="3"/>
+      <path d="M86 34L114 17" stroke="#F5B942" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="122" cy="12" r="6" fill="#6DD6C3"/>
+      <rect x="142" y="0" width="304" height="68" rx="12" fill="#111519" stroke="#343C44" stroke-width="2"/>
+      <text x="164" y="29" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="21" font-weight="700">REVIEW</text>
+      <text x="402" y="29" text-anchor="end" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20">×2</text>
+      <text x="164" y="52" fill="#89939D" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="17">DIFF · EVIDENCE</text>
+    </g>
+  </g>
+</svg>

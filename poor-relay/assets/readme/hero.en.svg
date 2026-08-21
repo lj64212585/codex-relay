@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Poor Relay</title>
+  <desc id="desc">A cost-aware Codex multi-agent relay: Luna handles investigation and implementation, Terra reviews by risk, and Sol plans or integrates on demand.</desc>
+
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#1A2026" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="420" rx="24" fill="#0B0E11"/>
+  <rect width="1200" height="420" rx="24" fill="url(#grid)" opacity="0.55"/>
+  <path d="M674 32V388" stroke="#2B323A" stroke-width="1"/>
+
+  <g id="title-block" transform="translate(56 50)">
+    <path d="M0 10H34L42 2L50 18L59 10H92" fill="none" stroke="#91E66C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="112" y="17" fill="#91E66C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700" letter-spacing="1.6">COST-AWARE AGENT RELAY</text>
+
+    <text x="0" y="116" fill="#F4F1E8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="72" font-weight="800" letter-spacing="-2">POOR</text>
+    <text x="212" y="116" fill="#91E66C" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="72" font-weight="800" letter-spacing="-2">RELAY</text>
+
+    <text x="0" y="174" fill="#F4F1E8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="28" font-weight="650">Let Luna carry the routine work</text>
+    <text x="0" y="214" fill="#A7B0B9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="28" font-weight="500">Bring in Terra / Sol only when needed</text>
+
+    <g transform="translate(0 268)">
+      <rect width="555" height="1" fill="#2B323A"/>
+      <text x="0" y="38" fill="#7E8994" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" letter-spacing="1.1">ONE CODEX TASK</text>
+      <circle cx="175" cy="32" r="3" fill="#91E66C"/>
+      <text x="192" y="38" fill="#7E8994" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" letter-spacing="1.1">5 BOUNDED ROLES</text>
+      <circle cx="398" cy="32" r="3" fill="#91E66C"/>
+      <text x="415" y="38" fill="#7E8994" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" letter-spacing="1.1">NO RUNNER</text>
+    </g>
+  </g>
+
+  <g id="relay-map" transform="translate(710 36)">
+    <text x="0" y="20" fill="#7E8994" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700" letter-spacing="1.4">RELAY MAP</text>
+    <text x="434" y="20" text-anchor="end" fill="#91E66C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16" letter-spacing="1">DEFAULT → RISK → NEED</text>
+
+    <g id="coordinator" transform="translate(0 42)">
+      <rect width="434" height="64" rx="12" fill="#14191E" stroke="#91E66C" stroke-width="2"/>
+      <circle cx="28" cy="32" r="8" fill="#91E66C"/>
+      <text x="52" y="27" fill="#7E8994" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700" letter-spacing="1.3">COORDINATOR</text>
+      <text x="52" y="49" fill="#F4F1E8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="22" font-weight="700">Luna Max · intent / lifecycle / routing</text>
+    </g>
+
+    <g id="connections" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M217 106V130M217 130H101V146M217 130H333V146" stroke="#91E66C" stroke-width="2"/>
+      <path d="M217 130V214" stroke="#4A545E" stroke-width="2" stroke-dasharray="5 7"/>
+      <path d="M217 270V288M217 288H101V306M217 288H333V306" stroke="#4A545E" stroke-width="2" stroke-dasharray="5 7"/>
+      <circle cx="217" cy="130" r="4" fill="#91E66C" stroke="none"/>
+      <circle cx="217" cy="288" r="4" fill="#7E8994" stroke="none"/>
+    </g>
+
+    <g id="luna-workers" transform="translate(0 146)">
+      <g>
+        <rect width="202" height="58" rx="10" fill="#101A13" stroke="#4F7F3D"/>
+        <text x="16" y="25" fill="#91E66C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="20" font-weight="700">tm_explorer</text>
+        <text x="16" y="45" fill="#7E8994" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15">LUNA · EVIDENCE</text>
+      </g>
+      <g transform="translate(232)">
+        <rect width="202" height="58" rx="10" fill="#101A13" stroke="#4F7F3D"/>
+        <text x="16" y="25" fill="#91E66C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="20" font-weight="700">tm_executor</text>
+        <text x="16" y="45" fill="#7E8994" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15">LUNA · BOUNDED WORK</text>
+      </g>
+    </g>
+
+    <g id="terra-review" transform="translate(116 214)">
+      <rect width="202" height="56" rx="10" fill="#14191E" stroke="#4A545E"/>
+      <text x="16" y="24" fill="#F4F1E8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="20" font-weight="700">tm_reviewer</text>
+      <text x="16" y="44" fill="#7E8994" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15">TERRA · ON RISK</text>
+    </g>
+
+    <g id="sol-roles" transform="translate(0 306)">
+      <g>
+        <rect width="202" height="58" rx="10" fill="#14191E" stroke="#4A545E"/>
+        <text x="16" y="25" fill="#F4F1E8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="20" font-weight="700">tm_planner</text>
+        <text x="16" y="45" fill="#7E8994" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15">SOL · ON NEED</text>
+      </g>
+      <g transform="translate(232)">
+        <rect width="202" height="58" rx="10" fill="#14191E" stroke="#4A545E"/>
+        <text x="16" y="25" fill="#F4F1E8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="20" font-weight="700">tm_integrator</text>
+        <text x="16" y="45" fill="#7E8994" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15">SOL · FINAL / ESCALATE</text>
+      </g>
+    </g>
+  </g>
+</svg>
