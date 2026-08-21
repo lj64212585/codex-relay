@@ -1,0 +1,7 @@
+interface:
+  display_name: "Sol-led Relay"
+  short_description: "由 Sol 主导，为复杂项目任务自动路由专用子 Agent 并保留父级决策权"
+  default_prompt: "Use $sol-led-relay to handle this project task with the smallest useful set of specialized subagents while the parent Sol agent retains decisions and integration."
+
+policy:
+  allow_implicit_invocation: true
