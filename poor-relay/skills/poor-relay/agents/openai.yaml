@@ -1,0 +1,7 @@
+interface:
+  display_name: "Poor Relay"
+  short_description: "在单个 Codex 任务中按成本分层编排有界多 Agent 工作"
+  default_prompt: "Use $poor-relay to orchestrate this project task with bounded agents and cost-aware escalation."
+
+policy:
+  allow_implicit_invocation: true
