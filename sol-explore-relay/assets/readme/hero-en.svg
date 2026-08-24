@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Sol Explore Relay</title>
+  <desc id="desc">Four read-only Agents explore code, documentation, and runtime evidence while parent Sol plans, implements, verifies, and delivers in the main session.</desc>
+
+  <defs>
+    <pattern id="context-grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#222A30" stroke-width="1" opacity="0.42"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="420" rx="28" fill="#090C0E"/>
+  <rect x="1" y="1" width="1198" height="418" rx="27" fill="none" stroke="#2B343A" stroke-width="2"/>
+  <rect width="1200" height="420" rx="28" fill="url(#context-grid)"/>
+
+  <g id="identity" transform="translate(60 48)">
+    <circle cx="8" cy="8" r="7" fill="#6DD6C3"/>
+    <path d="M22 8H46" stroke="#6DD6C3" stroke-width="2"/>
+    <text x="58" y="15" fill="#9CA7AF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700" letter-spacing="1.8">CONTEXT-SAVING CODEX ROUTING</text>
+
+    <text x="0" y="105" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="64" font-weight="780" letter-spacing="-2">Sol Explore</text>
+    <text x="0" y="171" fill="none" stroke="#6DD6C3" stroke-width="2" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="64" font-weight="780" letter-spacing="5">RELAY</text>
+
+    <text x="2" y="222" fill="#D8DDDF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="600">Delegate read-only exploration.</text>
+    <text x="2" y="257" fill="#D8DDDF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="600">Keep implementation in the main session.</text>
+
+    <g transform="translate(2 319)" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700">
+      <text x="0" y="0" fill="#6DD6C3">04</text>
+      <text x="28" y="0" fill="#89949C">READ-ONLY</text>
+      <text x="142" y="0" fill="#3D474E">/</text>
+      <text x="164" y="0" fill="#F5B942">00</text>
+      <text x="192" y="0" fill="#89949C">DELEGATED WRITES</text>
+      <text x="373" y="0" fill="#3D474E">/</text>
+      <text x="395" y="0" fill="#F5B942">SOL IMPLEMENTS</text>
+    </g>
+  </g>
+
+  <path d="M620 42V378" stroke="#2B343A" stroke-width="2"/>
+
+  <g id="explore-loop" transform="translate(664 38)">
+    <g id="parent-controller">
+      <rect width="474" height="70" rx="14" fill="#15191C" stroke="#5A4B28" stroke-width="2"/>
+      <circle cx="36" cy="35" r="15" fill="#F5B942"/>
+      <circle cx="36" cy="35" r="5" fill="#090C0E"/>
+      <text x="68" y="29" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="22" font-weight="750">PARENT SOL</text>
+      <text x="68" y="53" fill="#A1ABB2" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">DECIDE · PACKETIZE · ACCEPT</text>
+      <text x="446" y="42" text-anchor="end" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700">MAIN</text>
+    </g>
+
+    <path d="M36 70V99H20V240H50" fill="none" stroke="#6DD6C3" stroke-width="3" stroke-linecap="round"/>
+    <text x="64" y="105" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700">EXPLORE ONLY</text>
+
+    <g id="profiles" transform="translate(50 122)">
+      <rect width="196" height="52" rx="12" fill="#11171A" stroke="#31534F" stroke-width="2"/>
+      <circle cx="24" cy="26" r="6" fill="#6DD6C3"/>
+      <text x="42" y="33" fill="#D7DDDF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">CODE</text>
+
+      <rect x="218" width="196" height="52" rx="12" fill="#11171A" stroke="#31534F" stroke-width="2"/>
+      <circle cx="242" cy="26" r="6" fill="#6DD6C3"/>
+      <text x="260" y="33" fill="#D7DDDF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">DOCS</text>
+
+      <rect y="68" width="196" height="52" rx="12" fill="#11171A" stroke="#31534F" stroke-width="2"/>
+      <circle cx="24" cy="94" r="6" fill="#6DD6C3"/>
+      <text x="42" y="101" fill="#D7DDDF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">RUNTIME</text>
+
+      <rect x="218" y="68" width="196" height="52" rx="12" fill="#11171A" stroke="#31534F" stroke-width="2"/>
+      <circle cx="242" cy="94" r="6" fill="#6DD6C3"/>
+      <text x="260" y="101" fill="#D7DDDF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">DEEP RUNTIME</text>
+    </g>
+
+    <path d="M464 182V252H426" fill="none" stroke="#6DD6C3" stroke-width="3" stroke-linecap="round"/>
+    <path d="M414 252H64" stroke="#6DD6C3" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="50" cy="252" r="7" fill="#6DD6C3"/>
+    <text x="64" y="280" fill="#A6B0B6" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">COMPACT EVIDENCE RETURNS</text>
+
+    <g id="parent-workbench" transform="translate(0 306)">
+      <rect width="474" height="72" rx="14" fill="#171816" stroke="#5A4B28" stroke-width="2"/>
+      <rect x="0" y="0" width="8" height="72" rx="4" fill="#F5B942"/>
+      <text x="28" y="30" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="21" font-weight="750">IMPLEMENT HERE</text>
+      <text x="28" y="55" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700">PLAN · EDIT · TEST · REVIEW · DELIVER</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">Sol Explore Relay routing board</title>
+  <desc id="desc">Parent Sol dispatches only worthwhile read-only exploration. Four Explorers return compact evidence, then the parent plans, edits, checks, reviews, and delivers in the main session.</desc>
+
+  <rect width="1200" height="600" rx="28" fill="#090C0E"/>
+  <rect x="1" y="1" width="1198" height="598" rx="27" fill="none" stroke="#2B343A" stroke-width="2"/>
+
+  <g id="heading" transform="translate(56 48)">
+    <text x="0" y="0" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700" letter-spacing="2">EXPLORE BOUNDARY / 01</text>
+    <text x="0" y="52" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="42" font-weight="760">Only exploration leaves the main session</text>
+    <text x="0" y="88" fill="#929DA5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20">Children compress search context. Parent Sol keeps every decision, mutation, and completion claim.</text>
+  </g>
+
+  <g id="parent-question" transform="translate(56 184)">
+    <rect width="224" height="132" rx="16" fill="#161918" stroke="#5A4B28" stroke-width="2"/>
+    <circle cx="34" cy="34" r="10" fill="#F5B942"/>
+    <text x="56" y="42" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="750">PARENT SOL</text>
+    <text x="28" y="82" fill="#A4AEB5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">FREEZE QUESTION</text>
+    <text x="28" y="108" fill="#A4AEB5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">NAME SOURCES</text>
+  </g>
+
+  <path d="M280 250H326" stroke="#F5B942" stroke-width="3"/>
+  <circle cx="342" cy="250" r="14" fill="#090C0E" stroke="#F5B942" stroke-width="3"/>
+  <text x="342" y="286" text-anchor="middle" fill="#929DA5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">WORTH IT?</text>
+  <path d="M356 250H398" stroke="#6DD6C3" stroke-width="3"/>
+
+  <g id="explorer-bank" transform="translate(398 154)">
+    <rect width="492" height="264" rx="18" fill="#101518" stroke="#31534F" stroke-width="2"/>
+    <text x="24" y="34" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">READ-ONLY EXPLORERS · 04</text>
+
+    <g transform="translate(24 54)">
+      <rect width="444" height="43" rx="10" fill="#151B1E"/>
+      <circle cx="22" cy="22" r="6" fill="#6DD6C3"/>
+      <text x="40" y="28" fill="#F0F2EF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">CODE</text>
+      <text x="420" y="28" text-anchor="end" fill="#98A4AB" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">PATHS · OWNERSHIP</text>
+
+      <rect y="53" width="444" height="43" rx="10" fill="#151B1E"/>
+      <circle cx="22" cy="75" r="6" fill="#6DD6C3"/>
+      <text x="40" y="81" fill="#F0F2EF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">DOCS</text>
+      <text x="420" y="81" text-anchor="end" fill="#98A4AB" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">PRIMARY SOURCES</text>
+
+      <rect y="106" width="444" height="43" rx="10" fill="#151B1E"/>
+      <circle cx="22" cy="128" r="6" fill="#6DD6C3"/>
+      <text x="40" y="134" fill="#F0F2EF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">RUNTIME</text>
+      <text x="420" y="134" text-anchor="end" fill="#98A4AB" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">ONE HYPOTHESIS</text>
+
+      <rect y="159" width="444" height="43" rx="10" fill="#151B1E"/>
+      <circle cx="22" cy="181" r="6" fill="#6DD6C3"/>
+      <text x="40" y="187" fill="#F0F2EF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">DEEP RUNTIME</text>
+      <text x="420" y="187" text-anchor="end" fill="#98A4AB" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">CROSS-SYSTEM</text>
+    </g>
+  </g>
+
+  <path d="M890 250H940" stroke="#6DD6C3" stroke-width="3"/>
+  <g id="evidence" transform="translate(940 186)">
+    <rect width="204" height="128" rx="16" fill="#13191B" stroke="#31534F" stroke-width="2"/>
+    <text x="102" y="34" text-anchor="middle" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">RETURN</text>
+    <text x="102" y="65" text-anchor="middle" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="22" font-weight="750">EVIDENCE</text>
+    <path d="M30 82H174" stroke="#354148" stroke-width="2"/>
+    <text x="102" y="108" text-anchor="middle" fill="#98A4AB" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">NO CHANGES</text>
+  </g>
+
+  <path d="M1042 314V458H890" fill="none" stroke="#6DD6C3" stroke-width="3"/>
+  <path d="M398 458H342V264" fill="none" stroke="#F5B942" stroke-width="3"/>
+
+  <g id="parent-workbench" transform="translate(398 444)">
+    <rect width="492" height="96" rx="16" fill="#181814" stroke="#5A4B28" stroke-width="2"/>
+    <rect width="9" height="96" rx="4" fill="#F5B942"/>
+    <text x="30" y="37" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="760">Parent Sol implements in the main session</text>
+    <text x="30" y="68" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">PLAN · EDIT · TEST · REVIEW · DELIVER</text>
+  </g>
+
+  <text x="56" y="562" fill="#929DA5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="19">No delegated writers · no delegated reviewers · no automatic escalation · no second Coordinator</text>
+  <text x="1144" y="562" text-anchor="end" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">EXPLORE OUT / IMPLEMENT IN</text>
+</svg>

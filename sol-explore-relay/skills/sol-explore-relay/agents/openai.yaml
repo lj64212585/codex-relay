@@ -1,0 +1,7 @@
+interface:
+  display_name: "Sol Explore Relay"
+  short_description: "Delegate exploration while parent Sol keeps every implementation"
+  default_prompt: "Use $sol-explore-relay to delegate only bounded read-only exploration while parent Sol implements, verifies, and delivers the task."
+
+policy:
+  allow_implicit_invocation: true
