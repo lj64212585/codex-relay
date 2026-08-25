@@ -12,6 +12,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/lj64212585/codex-relay/releases/tag/v1.0.0"><strong>下载 v1.0.0</strong></a> ·
   <a href="#选择适合你的-relay">选择 Relay</a> ·
   <a href="#相对完美度与成本估算">对比估值</a> ·
   <a href="#使用-relay-installer">网页安装器</a> ·
@@ -73,7 +74,9 @@ Luna 或 Terra 保持主对话，Luna Max 只负责压缩可选探索证据；�
 
 ## 使用 Relay Installer
 
-如果不想手工复制 Skill 和 Agent 文件，可以从仓库根目录启动配置驱动的本地网页安装器。它要求 Python 3.11 或更高版本，仅监听 `127.0.0.1`，首次打开默认英文，并提供中英文切换与夜间模式。
+Windows 用户可直接从 GitHub Releases 下载 **[Relay Installer v1.0.0](https://github.com/lj64212585/codex-relay/releases/tag/v1.0.0)**。Release Assets 同时提供单文件 Win64 可执行程序及其 SHA-256 校验和。
+
+如果希望从源码运行安装器，可以从仓库根目录启动配置驱动的本地网页版本。该方式要求 Python 3.11 或更高版本，仅监听 `127.0.0.1`，首次打开默认英文，并提供中英文切换与夜间模式。
 
 ```powershell
 .\tools\relay-installer\start.ps1

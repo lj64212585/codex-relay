@@ -12,6 +12,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/lj64212585/codex-relay/releases/tag/v1.0.0"><strong>Download v1.0.0</strong></a> ·
   <a href="#choose-your-relay">Choose a Relay</a> ·
   <a href="#relative-implementation-quality-and-cost-estimates">Comparison estimates</a> ·
   <a href="#use-relay-installer">Web installer</a> ·
@@ -73,7 +74,9 @@ Parent Sol owns requirements, architecture, shared-file coordination, result acc
 
 ## Use Relay Installer
 
-If you prefer not to copy Skill and Agent files by hand, start the configuration-driven local web installer from the repository root. It requires Python 3.11 or later, listens only on `127.0.0.1`, defaults to English, and provides an English/Chinese switch plus light and dark themes.
+For the packaged Windows app, download **[Relay Installer v1.0.0](https://github.com/lj64212585/codex-relay/releases/tag/v1.0.0)** from GitHub Releases. The release Assets include the single-file Win64 executable and its SHA-256 checksum.
+
+If you prefer to run the installer from source, start the configuration-driven local web installer from the repository root. This workflow requires Python 3.11 or later, listens only on `127.0.0.1`, defaults to English, and provides an English/Chinese switch plus light and dark themes.
 
 ```powershell
 .\tools\relay-installer\start.ps1
