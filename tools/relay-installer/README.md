@@ -45,7 +45,7 @@ py -3 -B .\tools\relay-installer\relay_installer.py --check
 
 ## 配置 Relay 路径
 
-默认配置是 relay-installer.config.json。sourceRoot 相对配置文件所在目录解析，每个 relay.sourcePath 再相对 sourceRoot 解析。Skill 和 Agent 的源路径相对该 Relay 目录解析，目标路径必须相对安装根目录，不能包含跳出根目录的路径。
+默认配置是 relay-installer.config.json；在本仓库中，它把 `sourceRoot` 指向根目录下的 `relay/`。sourceRoot 相对配置文件所在目录解析，每个 relay.sourcePath 再相对 sourceRoot 解析。Skill 和 Agent 的源路径相对该 Relay 目录解析，目标路径必须相对安装根目录，不能包含跳出根目录的路径。
 
 启动时可换用另一份配置：
 
@@ -67,20 +67,24 @@ py -3 -B .\tools\relay-installer\relay_installer.py --check
 
 ## 打包
 
-build.ps1 会生成一份包内配置，把当前配置列出的 Relay 目录一起交给 PyInstaller。默认使用 onedir，便于检查包内内容：
+仓库级 Win64 打包入口会把网页工具、配置与当前配置列出的四套 Relay 全部固化进一个 EXE，并在构建后调用 EXE 的 `--check` 检查包内内容：
 
 ~~~powershell
 python -m pip install pyinstaller
-.\tools\relay-installer\build.ps1
+.\packaging\build-win64.bat
 ~~~
 
-需要单文件可执行程序时：
+产物位于 `packaging/out/win64/relay-installer.exe`。BAT 会要求选中的 Python 是 64 位 Windows Python；`packaging/.gitignore` 会保留 BAT 与忽略规则自身，并忽略 `out/` 等其他生成内容。
+
+需要直接控制底层构建时，可调用 build.ps1。它默认使用 onedir 并写入 `tools/relay-installer/dist`，也接受自定义输出目录与 Win64 检查：
 
 ~~~powershell
+.\tools\relay-installer\build.ps1
 .\tools\relay-installer\build.ps1 -Mode onefile
+.\tools\relay-installer\build.ps1 -Mode onefile -OutputDirectory packaging\out\win64 -RequireWin64
 ~~~
 
-构建脚本不会自动安装 PyInstaller。产物写到 tools/relay-installer/dist；包内配置把 sourceRoot 改为 relay-packages，入口在冻结环境中会优先读取可执行文件旁的外部配置，其次读取包内配置。因此后续既可以把多个 Relay 固化进可执行文件，也可以在 EXE 旁放置同名配置，改用外部 Relay 目录。
+构建脚本不会自动安装 PyInstaller。包内配置把 sourceRoot 改为 relay-packages，入口在冻结环境中会优先读取可执行文件旁的外部配置，其次读取包内配置。因此既可以使用固化进可执行文件的 Relay，也可以在 EXE 旁放置同名配置，改用外部 Relay 目录。
 
 ## 验证
 

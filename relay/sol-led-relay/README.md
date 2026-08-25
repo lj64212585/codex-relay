@@ -57,7 +57,7 @@
 下面的 PowerShell 示例会在发现同名 Agent 或 Skill 时停止，不覆盖来源不明的现有文件：
 
 ```powershell
-$relaySource = "D:\path\to\codex-relay\sol-led-relay"
+$relaySource = "D:\path\to\codex-relay\relay\sol-led-relay"
 $targetProject = "D:\path\to\target-project"
 $agentTarget = Join-Path $targetProject ".codex\agents"
 $skillTarget = Join-Path $targetProject ".agents\skills\sol-led-relay"

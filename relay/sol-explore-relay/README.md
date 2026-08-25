@@ -69,7 +69,7 @@ Deep Runtime 不是普通 Runtime 的自动升级。普通调查不确定时，�
 四个 Agent 使用 `sol_explore_*` 唯一前缀，可与其他 Relay profile 区分。下面的 PowerShell 示例发现同名来源时会停止，不会静默覆盖：
 
 ```powershell
-$relaySource = "D:\path\to\codex-relay\sol-explore-relay"
+$relaySource = "D:\path\to\codex-relay\relay\sol-explore-relay"
 $targetProject = "D:\path\to\target-project"
 $agentTarget = Join-Path $targetProject ".codex\agents"
 $skillTarget = Join-Path $targetProject ".agents\skills\sol-explore-relay"

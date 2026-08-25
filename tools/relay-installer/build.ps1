@@ -3,7 +3,9 @@ param(
     [ValidateSet("onedir", "onefile")]
     [string]$Mode = "onedir",
     [string]$ConfigPath,
-    [string]$PythonExecutable
+    [string]$PythonExecutable,
+    [string]$OutputDirectory,
+    [switch]$RequireWin64
 )
 
 $ErrorActionPreference = "Stop"
@@ -31,12 +33,23 @@ if ([string]::IsNullOrWhiteSpace($PythonExecutable)) {
     }
 }
 
+if ($RequireWin64) {
+    if ([Environment]::OSVersion.Platform -ne [PlatformID]::Win32NT) {
+        throw "The win64 package must be built on Windows."
+    }
+
+    & $PythonExecutable -c "import struct, sys; sys.exit(0 if sys.platform == 'win32' and struct.calcsize('P') * 8 == 64 else 1)"
+    if ($LASTEXITCODE -ne 0) {
+        throw "The selected Python runtime is not 64-bit Windows Python."
+    }
+}
+
 & $PythonExecutable -B (Join-Path $installerRoot "relay_installer.py") --check --config $resolvedConfigPath
 if ($LASTEXITCODE -ne 0) {
     throw "Relay Installer config validation failed with exit code $LASTEXITCODE."
 }
 
-& $PythonExecutable -c "import PyInstaller"
+& $PythonExecutable -c "import importlib.util, sys; sys.exit(0 if importlib.util.find_spec('PyInstaller') else 1)"
 if ($LASTEXITCODE -ne 0) {
     throw "PyInstaller is not available in the selected Python environment."
 }
@@ -56,7 +69,17 @@ $buildRoot = Join-Path $installerRoot ".build"
 $stagedConfigDirectory = Join-Path $buildRoot "package-config"
 $workDirectory = Join-Path $buildRoot "pyinstaller"
 $specDirectory = Join-Path $buildRoot "spec"
-$distDirectory = Join-Path $installerRoot "dist"
+$distDirectory = if ([string]::IsNullOrWhiteSpace($OutputDirectory)) {
+    Join-Path $installerRoot "dist"
+} elseif ([IO.Path]::IsPathRooted($OutputDirectory)) {
+    [IO.Path]::GetFullPath($OutputDirectory)
+} else {
+    [IO.Path]::GetFullPath((Join-Path $repositoryRoot $OutputDirectory))
+}
+
+if (Test-Path -LiteralPath $distDirectory -PathType Leaf) {
+    throw "Output directory points to a file: $distDirectory"
+}
 
 $resolvedBuildRoot = [IO.Path]::GetFullPath($buildRoot)
 $resolvedInstallerRoot = [IO.Path]::GetFullPath($installerRoot)
@@ -93,9 +116,12 @@ foreach ($relay in $bundleConfig.relays) {
 }
 
 $stagedConfigPath = Join-Path $stagedConfigDirectory "relay-installer.config.json"
-$bundleConfig |
-    ConvertTo-Json -Depth 12 |
-    Set-Content -LiteralPath $stagedConfigPath -Encoding utf8
+$stagedConfigJson = $bundleConfig | ConvertTo-Json -Depth 12
+[IO.File]::WriteAllText(
+    $stagedConfigPath,
+    $stagedConfigJson + [Environment]::NewLine,
+    [Text.UTF8Encoding]::new($false)
+)
 $dataArguments.Add("--add-data")
 $dataArguments.Add("$stagedConfigPath;.")
 
@@ -124,6 +150,15 @@ if ($LASTEXITCODE -ne 0) {
     throw "PyInstaller build failed with exit code $LASTEXITCODE."
 }
 
-Write-Host "[OK] Relay Installer package created in: $distDirectory"
+$artifactPath = if ($Mode -eq "onefile") {
+    Join-Path $distDirectory "relay-installer.exe"
+} else {
+    Join-Path $distDirectory "relay-installer"
+}
+if (-not (Test-Path -LiteralPath $artifactPath)) {
+    throw "PyInstaller completed without the expected artifact: $artifactPath"
+}
+
+Write-Host "[OK] Relay Installer package created: $artifactPath"
 Write-Host "[INFO] Bundled Relay source root: relay-packages"
 Write-Host "[INFO] Repository root used for this build: $repositoryRoot"

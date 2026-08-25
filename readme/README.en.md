@@ -26,10 +26,10 @@
 
 | Relay | Primary goal | Delegation surface | Best fit |
 | --- | --- | --- | --- |
-| [Poor Relay](../poor-relay/README.en.md) | Let Luna carry most work and escalate only when risk or value justifies it | Cost-tiered planning, exploration, execution, review, and integration | Everyday work, budget sensitivity, less high-cost reasoning |
-| [Sol Explore Relay](../sol-explore-relay/README.en.md) | Save search context while parent Sol implements the task itself | **Only 4 read-only Explore profiles** | Quality-sensitive work, shared files, avoiding implementation handoffs |
-| [Sol Pair Relay](../sol-pair-relay/README.en.md) | Give separate Sol agents clean planning and execution contexts | Luna Max explores, one Sol Max plans, a second Sol Max executes and accepts | Luna / Terra parent conversations, implementation quality, temporary plans that prevent drift |
-| [Sol-led Relay](../sol-led-relay/README.en.md) | Keep decision, integration, and delivery authority with parent Sol | Explore ×4, Execute ×3, Review ×2 | Complex projects with bounded slices and independent review |
+| [Poor Relay](../relay/poor-relay/README.en.md) | Let Luna carry most work and escalate only when risk or value justifies it | Cost-tiered planning, exploration, execution, review, and integration | Everyday work, budget sensitivity, less high-cost reasoning |
+| [Sol Explore Relay](../relay/sol-explore-relay/README.en.md) | Save search context while parent Sol implements the task itself | **Only 4 read-only Explore profiles** | Quality-sensitive work, shared files, avoiding implementation handoffs |
+| [Sol Pair Relay](../relay/sol-pair-relay/README.en.md) | Give separate Sol agents clean planning and execution contexts | Luna Max explores, one Sol Max plans, a second Sol Max executes and accepts | Luna / Terra parent conversations, implementation quality, temporary plans that prevent drift |
+| [Sol-led Relay](../relay/sol-led-relay/README.en.md) | Keep decision, integration, and delivery authority with parent Sol | Explore ×4, Execute ×3, Review ×2 | Complex projects with bounded slices and independent review |
 
 ## Relative implementation quality and cost estimates
 
@@ -38,10 +38,10 @@ The following figures are relative estimates for the **same medium-to-high-compl
 | Routing strategy | Task implementation quality | Implementation cost | Basis for the estimate |
 | --- | ---: | ---: | --- |
 | Single Sol working alone | **100%** | **100%** | Baseline; no handoff loss and no review gain from an independent context |
-| [Poor Relay](../poor-relay/README.en.md) | ${\color[RGB]{154,103,0}\mathbf{95\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{45\\%}}$ | Luna handles exploration and routine implementation while Terra and Sol enter only for risk, planning, or integration; it has the lowest cost, with some subtle implementation quality and global consistency traded for budget |
-| [Sol Explore Relay](../sol-explore-relay/README.en.md) | ${\color[RGB]{26,127,55}\mathbf{110\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{90\\%}}$ | Luna / Terra isolates noisy exploration while parent Sol retains full implementation authority; less context pollution buys a quality gain for modest dispatch and recheck overhead |
-| [Sol Pair Relay](../sol-pair-relay/README.en.md) | ${\color[RGB]{26,127,55}\mathbf{120\\%}}$ | ${\color[RGB]{207,34,46}\mathbf{180\\%}}$ | Two fresh Sol Max agents separately plan and execute with acceptance, giving the highest quality ceiling; duplicated understanding, plan handoff, and two Sol reasoning passes also make it the most expensive |
-| [Sol-led Relay](../sol-led-relay/README.en.md) | ${\color[RGB]{26,127,55}\mathbf{115\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{85\\%}}$ | Parent Sol keeps decisions and integration, Luna executes bounded slices, and Terra reviews independently; despite multi-role coordination overhead, it balances high quality with lower cost |
+| [Poor Relay](../relay/poor-relay/README.en.md) | ${\color[RGB]{154,103,0}\mathbf{95\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{45\\%}}$ | Luna handles exploration and routine implementation while Terra and Sol enter only for risk, planning, or integration; it has the lowest cost, with some subtle implementation quality and global consistency traded for budget |
+| [Sol Explore Relay](../relay/sol-explore-relay/README.en.md) | ${\color[RGB]{26,127,55}\mathbf{110\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{90\\%}}$ | Luna / Terra isolates noisy exploration while parent Sol retains full implementation authority; less context pollution buys a quality gain for modest dispatch and recheck overhead |
+| [Sol Pair Relay](../relay/sol-pair-relay/README.en.md) | ${\color[RGB]{26,127,55}\mathbf{120\\%}}$ | ${\color[RGB]{207,34,46}\mathbf{180\\%}}$ | Two fresh Sol Max agents separately plan and execute with acceptance, giving the highest quality ceiling; duplicated understanding, plan handoff, and two Sol reasoning passes also make it the most expensive |
+| [Sol-led Relay](../relay/sol-led-relay/README.en.md) | ${\color[RGB]{26,127,55}\mathbf{115\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{85\\%}}$ | Parent Sol keeps decisions and integration, Luna executes bounded slices, and Terra reviews independently; despite multi-role coordination overhead, it balances high quality with lower cost |
 
 > These figures compare routing priorities; they are not measured benchmarks. One-step tasks usually cannot amortize dispatch cost. As task complexity and exploration noise increase—and slice boundaries become clearer—the relative benefit of each Relay is more likely to approach the estimate above.
 >
@@ -51,25 +51,25 @@ The following figures are relative estimates for the **same medium-to-high-compl
 
 Luna handles context-heavy investigation, routine implementation, and self-checks. Terra reviews only when automated evidence cannot cover a blocking risk, while Sol keeps multi-step planning, failed-task escalation, and final technical integration.
 
-**Complete guide: [poor-relay/README.en.md](../poor-relay/README.en.md)**
+**Complete guide: [relay/poor-relay/README.en.md](../relay/poor-relay/README.en.md)**
 
 ### Sol Explore Relay — outsource only exploration
 
 Four read-only Explorers trace the repository, verify official sources, investigate one runtime question, or reconcile contradictory cross-system evidence. Parent Sol rechecks critical slices, then plans, edits, tests, reviews the real diff, and delivers. There are no delegated writers or reviewers.
 
-**Complete guide: [sol-explore-relay/README.en.md](../sol-explore-relay/README.en.md)**
+**Complete guide: [relay/sol-explore-relay/README.en.md](../relay/sol-explore-relay/README.en.md)**
 
 ### Sol Pair Relay — two fresh Sol contexts
 
 Luna or Terra keeps the parent conversation while Luna Max compresses optional exploration evidence. One fresh Sol Max writes only a temporary `plan.md`; a different fresh Sol Max follows it, runs checks, inspects the real diff, and performs technical acceptance. The two Sol agents share no long transcript—only the approved plan and minimal decision-critical evidence.
 
-**Complete guide: [sol-pair-relay/README.en.md](../sol-pair-relay/README.en.md)**
+**Complete guide: [relay/sol-pair-relay/README.en.md](../relay/sol-pair-relay/README.en.md)**
 
 ### Sol-led Relay — controlled lanes
 
 Parent Sol owns requirements, architecture, shared-file coordination, result acceptance, and final delivery while bounded packets with explicit sources, scope, checks, and stop conditions move through Explorer, Executor, and Reviewer lanes.
 
-**Complete guide: [sol-led-relay/README.en.md](../sol-led-relay/README.en.md)**
+**Complete guide: [relay/sol-led-relay/README.en.md](../relay/sol-led-relay/README.en.md)**
 
 ## Use Relay Installer
 
@@ -97,15 +97,14 @@ Validate the configuration and every Relay source file without installing:
 py -3 -B .\tools\relay-installer\relay_installer.py --check
 ```
 
-After installing PyInstaller, build the default directory package or a single executable:
+After installing 64-bit Python 3.11+ and PyInstaller, use the repository packaging entry point to build one Win64 executable containing all four Relays:
 
 ```powershell
 python -m pip install pyinstaller
-.\tools\relay-installer\build.ps1
-.\tools\relay-installer\build.ps1 -Mode onefile
+.\packaging\build-win64.bat
 ```
 
-Build output is written to `tools/relay-installer/dist`. See the **[Relay Installer reference (Chinese)](../tools/relay-installer/README.md)** for configuration fields, path boundaries, and packaging behavior.
+The BAT checks the bundled content after packaging and writes `packaging/out/win64/relay-installer.exe`; `out/` stays out of Git. See the **[Relay Installer reference (Chinese)](../tools/relay-installer/README.md)** for configuration fields, path boundaries, and advanced packaging options.
 
 </details>
 
@@ -117,7 +116,7 @@ Verify the source package you intend to use, then follow its README to install i
 <summary><strong>Verify Poor Relay</strong></summary>
 
 ```powershell
-Push-Location .\poor-relay
+Push-Location .\relay\poor-relay
 .\scripts\verify.ps1
 Pop-Location
 ```
@@ -128,7 +127,7 @@ Pop-Location
 <summary><strong>Verify Sol Explore Relay</strong></summary>
 
 ```powershell
-Push-Location .\sol-explore-relay
+Push-Location .\relay\sol-explore-relay
 python -X utf8 skills\sol-explore-relay\scripts\validate_sol_explore_relay.py
 Pop-Location
 ```
@@ -139,7 +138,7 @@ Pop-Location
 <summary><strong>Verify Sol Pair Relay</strong></summary>
 
 ```powershell
-Push-Location .\sol-pair-relay
+Push-Location .\relay\sol-pair-relay
 .\scripts\verify.ps1
 Pop-Location
 ```
@@ -150,7 +149,7 @@ Pop-Location
 <summary><strong>Verify Sol-led Relay</strong></summary>
 
 ```powershell
-Push-Location .\sol-led-relay
+Push-Location .\relay\sol-led-relay
 python -X utf8 skills\sol-led-relay\scripts\validate_sol_led_relay.py
 Pop-Location
 ```
@@ -173,14 +172,14 @@ Pop-Location
 
 ```text
 codex-relay/
-├── poor-relay/                     # Cost- and risk-aware 5-profile routing package
-│   └── README.en.md
-├── sol-explore-relay/              # Explore-only, parent-implemented 4-profile package
-│   └── README.en.md
-├── sol-pair-relay/                 # Luna / Terra parent, two-Sol relay, 3-profile package
-│   └── README.en.md
-├── sol-led-relay/                  # Parent-Sol-controlled 9-profile, three-lane package
-│   └── README.en.md
+├── relay/
+│   ├── poor-relay/                 # Cost- and risk-aware 5-profile routing package
+│   ├── sol-explore-relay/          # Explore-only, parent-implemented 4-profile package
+│   ├── sol-pair-relay/             # Luna / Terra parent, two-Sol relay, 3-profile package
+│   └── sol-led-relay/              # Parent-Sol-controlled 9-profile, three-lane package
+├── packaging/
+│   ├── build-win64.bat             # One-file Win64 build and bundled-content check
+│   └── out/win64/                  # Ignored generated output
 ├── tools/
 │   └── relay-installer/            # Local web UI for install, switch, removal, and packaging
 └── readme/
@@ -188,4 +187,4 @@ codex-relay/
     └── assets/                     # Local visuals for the repository overview
 ```
 
-Continue with the complete guides: **[Poor Relay](../poor-relay/README.en.md)** · **[Sol Explore Relay](../sol-explore-relay/README.en.md)** · **[Sol Pair Relay](../sol-pair-relay/README.en.md)** · **[Sol-led Relay](../sol-led-relay/README.en.md)**
+Continue with the complete guides: **[Poor Relay](../relay/poor-relay/README.en.md)** · **[Sol Explore Relay](../relay/sol-explore-relay/README.en.md)** · **[Sol Pair Relay](../relay/sol-pair-relay/README.en.md)** · **[Sol-led Relay](../relay/sol-led-relay/README.en.md)**

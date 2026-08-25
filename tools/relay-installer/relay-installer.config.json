@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRoot": "../..",
+  "sourceRoot": "../../relay",
   "relays": [
     {
       "id": "poor-relay",

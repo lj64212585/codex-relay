@@ -57,7 +57,7 @@ The standard installation surface has only two locations:
 This PowerShell example stops when it finds an existing Agent or Skill with the same name. It does not overwrite files of unknown origin:
 
 ```powershell
-$relaySource = "D:\path\to\codex-relay\sol-led-relay"
+$relaySource = "D:\path\to\codex-relay\relay\sol-led-relay"
 $targetProject = "D:\path\to\target-project"
 $agentTarget = Join-Path $targetProject ".codex\agents"
 $skillTarget = Join-Path $targetProject ".agents\skills\sol-led-relay"

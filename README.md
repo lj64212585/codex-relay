@@ -26,10 +26,10 @@
 
 | Relay | 首要目标 | 可委派范围 | 适合场景 |
 | --- | --- | --- | --- |
-| [Poor Relay](./poor-relay/README.md) | 让 Luna 承担大多数工作，只在风险或价值足够高时升级 | 规划、探索、执行、审核与集成按成本分层 | 日常项目、预算敏感、希望减少高成本推理 |
-| [Sol Explore Relay](./sol-explore-relay/README.md) | 节约检索上下文，同时让父级 Sol 亲自实现 | **仅 4 个只读 Explore profile** | 质量敏感、共享文件多、希望避免实现交接 |
-| [Sol Pair Relay](./sol-pair-relay/README.md) | 让两个 Sol 分别获得干净的规划与执行上下文 | Luna Max 探索、Sol Max 规划、另一个 Sol Max 执行验收 | Luna / Terra 主对话、实现质量优先、需要临时计划防偏 |
-| [Sol-led Relay](./sol-led-relay/README.md) | 让父级 Sol 保留决策、集成与交付权 | Explore ×4、Execute ×3、Review ×2 | 复杂项目、适合有界切片与独立审核 |
+| [Poor Relay](./relay/poor-relay/README.md) | 让 Luna 承担大多数工作，只在风险或价值足够高时升级 | 规划、探索、执行、审核与集成按成本分层 | 日常项目、预算敏感、希望减少高成本推理 |
+| [Sol Explore Relay](./relay/sol-explore-relay/README.md) | 节约检索上下文，同时让父级 Sol 亲自实现 | **仅 4 个只读 Explore profile** | 质量敏感、共享文件多、希望避免实现交接 |
+| [Sol Pair Relay](./relay/sol-pair-relay/README.md) | 让两个 Sol 分别获得干净的规划与执行上下文 | Luna Max 探索、Sol Max 规划、另一个 Sol Max 执行验收 | Luna / Terra 主对话、实现质量优先、需要临时计划防偏 |
+| [Sol-led Relay](./relay/sol-led-relay/README.md) | 让父级 Sol 保留决策、集成与交付权 | Explore ×4、Execute ×3、Review ×2 | 复杂项目、适合有界切片与独立审核 |
 
 ## 相对完美度与成本估算
 
@@ -38,10 +38,10 @@
 | 调度方式 | 任务实现完美度 | 实现成本 | 估值依据 |
 | --- | ---: | ---: | --- |
 | 单个 Sol 独立完成 | **100%** | **100%** | 基准；没有交接损耗，也没有独立上下文带来的复核增益 |
-| [Poor Relay](./poor-relay/README.md) | ${\color[RGB]{154,103,0}\mathbf{95\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{45\\%}}$ | Luna 承担探索与常规实现，Terra 和 Sol 只在风险、规划或集成节点介入；成本最低，但细腻实现与全局一致性略让位于预算 |
-| [Sol Explore Relay](./sol-explore-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{110\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{90\\%}}$ | Luna / Terra 隔离高噪声探索，父级 Sol 保留完整实现权；减少上下文污染，以少量派发和复核开销换取质量提升 |
-| [Sol Pair Relay](./sol-pair-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{120\\%}}$ | ${\color[RGB]{207,34,46}\mathbf{180\\%}}$ | 两个全新的 Sol Max 分别规划和实现验收，质量上限最高；重复理解、计划交接与双 Sol 推理也使成本最高 |
-| [Sol-led Relay](./sol-led-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{115\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{85\\%}}$ | 父级 Sol 保留决策与集成，Luna 执行有界切片，Terra 独立复核；在多角色协调开销下仍兼顾较高质量与较低成本 |
+| [Poor Relay](./relay/poor-relay/README.md) | ${\color[RGB]{154,103,0}\mathbf{95\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{45\\%}}$ | Luna 承担探索与常规实现，Terra 和 Sol 只在风险、规划或集成节点介入；成本最低，但细腻实现与全局一致性略让位于预算 |
+| [Sol Explore Relay](./relay/sol-explore-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{110\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{90\\%}}$ | Luna / Terra 隔离高噪声探索，父级 Sol 保留完整实现权；减少上下文污染，以少量派发和复核开销换取质量提升 |
+| [Sol Pair Relay](./relay/sol-pair-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{120\\%}}$ | ${\color[RGB]{207,34,46}\mathbf{180\\%}}$ | 两个全新的 Sol Max 分别规划和实现验收，质量上限最高；重复理解、计划交接与双 Sol 推理也使成本最高 |
+| [Sol-led Relay](./relay/sol-led-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{115\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{85\\%}}$ | 父级 Sol 保留决策与集成，Luna 执行有界切片，Terra 独立复核；在多角色协调开销下仍兼顾较高质量与较低成本 |
 
 > 这些数值用于比较调度取向，不是实测 benchmark。一步式小任务通常无法摊薄派发成本；任务越复杂、探索噪声越大、切片边界越清晰，Relay 的相对收益越接近表中估值。
 >
@@ -51,25 +51,25 @@
 
 Luna 负责高上下文调查、常规实现和自检；Terra 只在自动化证据覆盖不了关键风险时审核，Sol 保留多步骤规划、失败升级与最终技术集成。
 
-**完整指南：[poor-relay/README.md](./poor-relay/README.md)**
+**完整指南：[relay/poor-relay/README.md](./relay/poor-relay/README.md)**
 
 ### Sol Explore Relay — 只外包探索
 
 四个只读 Explorer 分别追踪仓库、核对官方资料、分析单一运行问题或对齐跨系统矛盾证据。父级 Sol 复核关键切片后，自行规划、编辑、测试、审核真实 diff 并交付；没有任何写入或审核子角色。
 
-**完整指南：[sol-explore-relay/README.md](./sol-explore-relay/README.md)**
+**完整指南：[relay/sol-explore-relay/README.md](./relay/sol-explore-relay/README.md)**
 
 ### Sol Pair Relay — 双 Sol 新上下文接力
 
 Luna 或 Terra 保持主对话，Luna Max 只负责压缩可选探索证据；一个全新的 Sol Max 只写临时 `plan.md`，另一个全新的 Sol Max 按计划实现、运行检查、审阅真实 diff 并完成技术验收。两个 Sol 不共享长对话，只共享已批准计划和少量决策关键证据。
 
-**完整指南：[sol-pair-relay/README.md](./sol-pair-relay/README.md)**
+**完整指南：[relay/sol-pair-relay/README.md](./relay/sol-pair-relay/README.md)**
 
 ### Sol-led Relay — 全车道控制
 
 父级 Sol 负责需求、架构、共享文件协调、结果接纳与最终交付，同时把来源、范围、检查和停止条件明确的任务切片送入 Explorer、Executor 与 Reviewer 专用回路。
 
-**完整指南：[sol-led-relay/README.md](./sol-led-relay/README.md)**
+**完整指南：[relay/sol-led-relay/README.md](./relay/sol-led-relay/README.md)**
 
 ## 使用 Relay Installer
 
@@ -97,15 +97,14 @@ Luna 或 Terra 保持主对话，Luna Max 只负责压缩可选探索证据；�
 py -3 -B .\tools\relay-installer\relay_installer.py --check
 ```
 
-安装 PyInstaller 后，可生成默认的目录版产物，或单文件可执行程序：
+安装 64 位 Python 3.11+ 与 PyInstaller 后，可用仓库打包入口生成内置四套 Relay 的单文件 Win64 可执行程序：
 
 ```powershell
 python -m pip install pyinstaller
-.\tools\relay-installer\build.ps1
-.\tools\relay-installer\build.ps1 -Mode onefile
+.\packaging\build-win64.bat
 ```
 
-产物写入 `tools/relay-installer/dist`。完整的配置字段、路径边界与打包行为见 **[Relay Installer 文档](./tools/relay-installer/README.md)**。
+BAT 会在打包结束后运行内置内容检查，产物写入 `packaging/out/win64/relay-installer.exe`；`out/` 不进入 Git。完整的配置字段、路径边界与高级打包参数见 **[Relay Installer 文档](./tools/relay-installer/README.md)**。
 
 </details>
 
@@ -117,7 +116,7 @@ python -m pip install pyinstaller
 <summary><strong>验证 Poor Relay</strong></summary>
 
 ```powershell
-Push-Location .\poor-relay
+Push-Location .\relay\poor-relay
 .\scripts\verify.ps1
 Pop-Location
 ```
@@ -128,7 +127,7 @@ Pop-Location
 <summary><strong>验证 Sol Explore Relay</strong></summary>
 
 ```powershell
-Push-Location .\sol-explore-relay
+Push-Location .\relay\sol-explore-relay
 python -X utf8 skills\sol-explore-relay\scripts\validate_sol_explore_relay.py
 Pop-Location
 ```
@@ -139,7 +138,7 @@ Pop-Location
 <summary><strong>验证 Sol Pair Relay</strong></summary>
 
 ```powershell
-Push-Location .\sol-pair-relay
+Push-Location .\relay\sol-pair-relay
 .\scripts\verify.ps1
 Pop-Location
 ```
@@ -150,7 +149,7 @@ Pop-Location
 <summary><strong>验证 Sol-led Relay</strong></summary>
 
 ```powershell
-Push-Location .\sol-led-relay
+Push-Location .\relay\sol-led-relay
 python -X utf8 skills\sol-led-relay\scripts\validate_sol_led_relay.py
 Pop-Location
 ```
@@ -173,14 +172,14 @@ Pop-Location
 
 ```text
 codex-relay/
-├── poor-relay/                     # 成本与风险感知的 5-profile 调度包
-│   └── README.md
-├── sol-explore-relay/              # Explore-only、父级 Sol 实现的 4-profile 调度包
-│   └── README.md
-├── sol-pair-relay/                 # Luna / Terra 主对话、双 Sol 接力的 3-profile 调度包
-│   └── README.md
-├── sol-led-relay/                  # 父级 Sol 控制三车道的 9-profile 调度包
-│   └── README.md
+├── relay/
+│   ├── poor-relay/                 # 成本与风险感知的 5-profile 调度包
+│   ├── sol-explore-relay/          # Explore-only、父级 Sol 实现的 4-profile 调度包
+│   ├── sol-pair-relay/             # Luna / Terra 主对话、双 Sol 接力的 3-profile 调度包
+│   └── sol-led-relay/              # 父级 Sol 控制三车道的 9-profile 调度包
+├── packaging/
+│   ├── build-win64.bat             # 单文件 Win64 打包与包内自检入口
+│   └── out/win64/                  # 被忽略的生成产物
 ├── tools/
 │   └── relay-installer/            # 支持安装、切换、移除与打包的本地网页安装器
 └── readme/
@@ -188,4 +187,4 @@ codex-relay/
     └── assets/                     # 根 README 的本地视觉资源
 ```
 
-从这里进入完整文档：**[Poor Relay](./poor-relay/README.md)** · **[Sol Explore Relay](./sol-explore-relay/README.md)** · **[Sol Pair Relay](./sol-pair-relay/README.md)** · **[Sol-led Relay](./sol-led-relay/README.md)**
+从这里进入完整文档：**[Poor Relay](./relay/poor-relay/README.md)** · **[Sol Explore Relay](./relay/sol-explore-relay/README.md)** · **[Sol Pair Relay](./relay/sol-pair-relay/README.md)** · **[Sol-led Relay](./relay/sol-led-relay/README.md)**

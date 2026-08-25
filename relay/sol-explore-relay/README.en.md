@@ -69,7 +69,7 @@ There are only two installation surfaces:
 The four Agents use a unique `sol_explore_*` prefix so they remain distinct from other Relay profiles. This PowerShell example stops on a same-name source instead of silently overwriting it:
 
 ```powershell
-$relaySource = "D:\path\to\codex-relay\sol-explore-relay"
+$relaySource = "D:\path\to\codex-relay\relay\sol-explore-relay"
 $targetProject = "D:\path\to\target-project"
 $agentTarget = Join-Path $targetProject ".codex\agents"
 $skillTarget = Join-Path $targetProject ".agents\skills\sol-explore-relay"
