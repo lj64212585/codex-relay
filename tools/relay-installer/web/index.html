@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta
+      name="description"
+      content="为当前用户或指定项目安装 Codex Relay 调度包。"
+      data-i18n-content="meta.description"
+    >
+    <title>Relay Installer</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/readme-renderer.js" defer></script>
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#installer-form" data-i18n="skip">跳到安装设置</a>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" data-i18n-aria-label="brand.home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <path d="M7 9.5h7.5l3 4.5H25"></path>
+              <path d="M7 22.5h7.5l3-4.5H25"></path>
+              <circle cx="6" cy="9.5" r="2.5"></circle>
+              <circle cx="26" cy="16" r="2.5"></circle>
+              <circle cx="6" cy="22.5" r="2.5"></circle>
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>Relay Installer</strong>
+            <small data-i18n="brand.subtitle">Local setup console</small>
+          </span>
+        </a>
+
+        <div class="topbar-actions">
+          <span class="local-badge">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span data-i18n="localOnly">仅在本机运行</span>
+          </span>
+
+          <div
+            class="language-switch"
+            id="language-switch"
+            role="group"
+            data-i18n-aria-label="language.group"
+          >
+            <button
+              class="language-option is-active"
+              type="button"
+              data-locale="zh-CN"
+              aria-pressed="true"
+              data-i18n-aria-label="language.toChinese"
+            >
+              中文
+            </button>
+            <button
+              class="language-option"
+              type="button"
+              data-locale="en"
+              aria-pressed="false"
+              data-i18n-aria-label="language.toEnglish"
+            >
+              EN
+            </button>
+          </div>
+
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            type="button"
+            role="switch"
+            aria-checked="false"
+            data-i18n-aria-label="theme.enable"
+          >
+            <span class="theme-icon theme-icon-sun" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path>
+              </svg>
+            </span>
+            <span class="theme-icon theme-icon-moon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"></path>
+              </svg>
+            </span>
+            <span class="theme-label" data-i18n="theme.label">夜间模式</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="console">
+        <section class="console-intro" aria-labelledby="page-title">
+          <div class="intro-copy">
+            <p class="eyebrow">Codex Relay Setup</p>
+            <div class="title-row">
+              <h1 id="page-title" data-i18n="hero.title">安装你的 Relay 调度</h1>
+              <span class="aspect-badge">16:9</span>
+            </div>
+            <p data-i18n="hero.copy">
+              选择范围与类型，安装器会先检查冲突，再执行可恢复的安全切换。
+            </p>
+          </div>
+          <ol class="flow-steps" data-i18n-aria-label="flow.label">
+            <li><strong>01</strong><span data-i18n="flow.scope">选择范围</span></li>
+            <li><strong>02</strong><span data-i18n="flow.conflict">检查冲突</span></li>
+            <li><strong>03</strong><span data-i18n="flow.install">安装校验</span></li>
+          </ol>
+        </section>
+
+        <div class="workspace">
+          <form class="installer-panel" id="installer-form" novalidate>
+            <div class="panel-heading">
+              <div>
+                <p class="section-index" data-i18n="form.eyebrow">Installation</p>
+                <h2 data-i18n="form.title">配置安装</h2>
+              </div>
+              <span class="step-count" data-i18n="form.count">3 个步骤</span>
+            </div>
+
+            <div class="setup-grid">
+              <fieldset class="form-section scope-section">
+                <div class="section-heading">
+                  <legend>
+                    <span class="legend-number">1</span>
+                    <span data-i18n="scope.title">安装范围</span>
+                  </legend>
+                  <p data-i18n="scope.help">全局仅作用于当前用户；项目安装只在指定仓库生效。</p>
+                </div>
+
+                <div class="scope-grid">
+                  <label class="choice-option">
+                    <input
+                      class="choice-input"
+                      type="radio"
+                      name="scope"
+                      value="global"
+                      checked
+                    >
+                    <span class="choice-card">
+                      <span class="choice-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <circle cx="12" cy="8" r="3"></circle>
+                          <path d="M5.5 20a6.5 6.5 0 0 1 13 0"></path>
+                        </svg>
+                      </span>
+                      <span class="choice-copy">
+                        <strong data-i18n="scope.global">全局</strong>
+                        <small data-i18n="scope.globalHelp">当前用户的所有项目可发现</small>
+                      </span>
+                      <span class="radio-mark" aria-hidden="true"></span>
+                    </span>
+                  </label>
+
+                  <label class="choice-option">
+                    <input
+                      class="choice-input"
+                      type="radio"
+                      name="scope"
+                      value="project"
+                    >
+                    <span class="choice-card">
+                      <span class="choice-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                          <path d="M3.5 6.5h6l2 2h9v10h-17Z"></path>
+                          <path d="M3.5 8.5v-3h6l2 2"></path>
+                        </svg>
+                      </span>
+                      <span class="choice-copy">
+                        <strong data-i18n="scope.project">项目</strong>
+                        <small data-i18n="scope.projectHelp">只在指定项目内生效</small>
+                      </span>
+                      <span class="radio-mark" aria-hidden="true"></span>
+                    </span>
+                  </label>
+                </div>
+
+                <div class="destination-block global-target-field" id="global-target-field">
+                  <span class="destination-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 3.5v11M8 10.5l4 4 4-4"></path>
+                      <path d="M4 16.5v3h16v-3"></path>
+                    </svg>
+                  </span>
+                  <span class="destination-copy">
+                    <span data-i18n="destination.globalLabel">当前用户安装目录</span>
+                    <strong class="path-value" id="global-target-path">正在读取…</strong>
+                  </span>
+                </div>
+
+                <div class="project-path-field" id="project-path-field" hidden>
+                  <label for="project-path" data-i18n="destination.projectLabel">
+                    项目安装目录
+                  </label>
+                  <div class="path-control">
+                    <input
+                      id="project-path"
+                      name="projectPath"
+                      type="text"
+                      autocomplete="off"
+                      spellcheck="false"
+                      placeholder="例如 D:\Projects\my-project"
+                      data-i18n-placeholder="destination.placeholder"
+                      aria-describedby="project-path-help project-path-error"
+                    >
+                    <button class="secondary-button browse-button" id="browse-button" type="button">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M3.5 6.5h6l2 2h9v10h-17Z"></path>
+                      </svg>
+                      <span data-i18n="destination.browse">浏览目录</span>
+                    </button>
+                  </div>
+                  <p class="field-help" id="project-path-help" data-i18n="destination.help">
+                    写入 .agents/skills 与 .codex/agents。
+                  </p>
+                  <p class="field-error" id="project-path-error" role="alert"></p>
+                </div>
+
+                <div class="scope-note">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 3.5 20 7v6c0 4.1-3.1 6.7-8 8-4.9-1.3-8-3.9-8-8V7Z"></path>
+                    <path d="m8.5 12 2.2 2.2 4.8-4.8"></path>
+                  </svg>
+                  <p data-i18n="scope.note">
+                    只写入配置声明的 Skill 和 Agent 文件，不修改父目录中的其他内容。
+                  </p>
+                </div>
+
+                <div class="scope-remove-action">
+                  <button
+                    class="danger-button scope-remove-button"
+                    id="remove-relays-button"
+                    type="button"
+                    disabled
+                  >
+                    <span class="button-spinner" aria-hidden="true"></span>
+                    <svg class="remove-button-icon" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M4.5 7.5h15M9 4.5h6l1 3H8Z"></path>
+                      <path d="m6.5 7.5 1 12h9l1-12M10 11v5M14 11v5"></path>
+                    </svg>
+                    <span class="remove-button-label" data-i18n="scope.removeButton">
+                      移除当前目录的调度文件
+                    </span>
+                  </button>
+                </div>
+              </fieldset>
+
+              <fieldset class="form-section relay-section">
+                <div class="section-heading">
+                  <legend>
+                    <span class="legend-number">2</span>
+                    <span data-i18n="relay.title">Relay 类型</span>
+                  </legend>
+                  <p data-i18n="relay.help">同一安装范围建议只保留一种主调度策略。</p>
+                </div>
+                <div class="relay-grid" id="relay-options" aria-live="polite">
+                  <div class="relay-skeleton"></div>
+                  <div class="relay-skeleton"></div>
+                  <div class="relay-skeleton"></div>
+                  <div class="relay-skeleton"></div>
+                </div>
+              </fieldset>
+            </div>
+
+            <section class="install-bar" aria-labelledby="install-action-title">
+              <div class="install-copy">
+                <span class="legend-number">3</span>
+                <div>
+                  <h3 id="install-action-title" data-i18n="install.title">检查并安装</h3>
+                  <p data-i18n="install.help">先只读检查；确认冲突处理后才会改动文件。</p>
+                </div>
+              </div>
+              <button class="primary-button" id="install-button" type="submit" disabled>
+                <span class="button-label" data-i18n="install.button">检查并安装</span>
+                <span class="button-spinner" aria-hidden="true"></span>
+                <svg class="button-arrow" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 12h14M14 7l5 5-5 5"></path>
+                </svg>
+              </button>
+            </section>
+
+            <div class="result-panel" id="result-panel" role="status" aria-live="polite" hidden>
+              <span class="result-icon" aria-hidden="true"></span>
+              <div class="result-copy">
+                <strong id="result-title"></strong>
+                <p id="result-message"></p>
+                <div class="result-details" id="result-details"></div>
+              </div>
+            </div>
+          </form>
+
+          <aside class="summary-panel" aria-labelledby="summary-title">
+            <div class="summary-heading">
+              <div>
+                <p class="section-index">Preflight</p>
+                <h2 id="summary-title" data-i18n="summary.title">安装摘要</h2>
+              </div>
+              <span class="summary-state" id="summary-state">
+                <span aria-hidden="true"></span>
+                <span class="summary-state-label" data-i18n="summary.loading">准备中</span>
+              </span>
+            </div>
+
+            <dl class="summary-list">
+              <div>
+                <dt data-i18n="summary.scope">安装范围</dt>
+                <dd id="summary-scope">全局 · 当前用户</dd>
+              </div>
+              <div>
+                <dt data-i18n="summary.path">目标根目录</dt>
+                <dd class="path-value" id="summary-path">正在读取…</dd>
+              </div>
+              <div>
+                <dt>Relay</dt>
+                <dd id="summary-relay">正在读取…</dd>
+              </div>
+              <div>
+                <dt data-i18n="summary.content">写入内容</dt>
+                <dd id="summary-content">Skill + Agent profiles</dd>
+              </div>
+            </dl>
+
+            <div class="preflight-message" id="preflight-message">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3.5 21 8v8l-9 4.5L3 16V8Z"></path>
+                <path d="m8.5 12 2.2 2.2 4.8-4.8"></path>
+              </svg>
+              <div>
+                <strong data-i18n="preflight.pendingTitle">冲突检查尚未运行</strong>
+                <p data-i18n="preflight.pendingCopy">
+                  安装前将检查此位置的已知 Relay 与同名文件。
+                </p>
+              </div>
+            </div>
+
+            <div class="config-note">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 11v5M12 8h.01"></path>
+              </svg>
+              <p>
+                <span data-i18n="config.before">Relay 源目录来自</span>
+                <button class="text-button" id="config-path-button" type="button" data-i18n="config.button">
+                  配置文件
+                </button>
+                <span data-i18n="config.after">，网页不写死包路径。</span>
+              </p>
+            </div>
+            <p class="config-path" id="config-path" hidden></p>
+
+            <div class="local-note">
+              <span class="status-dot" aria-hidden="true"></span>
+              <p data-i18n="summary.localNote">
+                服务仅监听 127.0.0.1；关闭终端即可停止。
+              </p>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+
+    <dialog class="conflict-dialog" id="conflict-dialog" aria-labelledby="conflict-title">
+      <div class="dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 3 22 20H2Z"></path>
+          <path d="M12 9v5M12 17.5h.01"></path>
+        </svg>
+      </div>
+      <div class="dialog-content">
+        <p class="dialog-eyebrow" data-i18n="dialog.eyebrow">检测到其他调度</p>
+        <h2 id="conflict-title" data-i18n="dialog.title">多个 Relay 会产生调度冲突</h2>
+        <p class="dialog-warning" data-i18n="dialog.warning">
+          多个调度 Skill 会竞争同一任务；如果共享 Agent 名称，配置还会互相覆盖，导致实际执行角色与预期不一致。
+        </p>
+        <div class="conflict-list" id="conflict-list"></div>
+        <div class="backup-note">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 7.5h16v12H4Z"></path>
+            <path d="M8 4.5h8v3H8ZM9 12h6"></path>
+          </svg>
+          <p data-i18n="dialog.backup">
+            继续后，其他 Relay 会先从活动位置移除并保存可恢复备份，再安装当前选择。
+          </p>
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button class="secondary-button" id="cancel-conflict-button" type="button" data-i18n="dialog.cancel">
+          取消
+        </button>
+        <button class="danger-button" id="confirm-conflict-button" type="button" data-i18n="dialog.confirm">
+          移除其他调度并安装
+        </button>
+      </div>
+    </dialog>
+
+    <dialog
+      class="conflict-dialog remove-dialog"
+      id="remove-dialog"
+      aria-labelledby="remove-dialog-title"
+      aria-describedby="remove-dialog-warning remove-backup-note"
+    >
+      <div class="dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M4.5 7.5h15M9 4.5h6l1 3H8Z"></path>
+          <path d="m6.5 7.5 1 12h9l1-12M10 11v5M14 11v5"></path>
+        </svg>
+      </div>
+      <div class="dialog-content">
+        <p class="dialog-eyebrow" data-i18n="removeDialog.eyebrow">移除调度文件</p>
+        <h2 id="remove-dialog-title" data-i18n="removeDialog.title">
+          确认移除当前目录的调度？
+        </h2>
+        <p class="dialog-warning" id="remove-dialog-warning" data-i18n="removeDialog.warning">
+          下列 Relay 的 Skill 与 Agent 文件会从活动目录移出；目录中的其他文件不会被修改。
+        </p>
+        <p class="remove-target">
+          <span data-i18n="removeDialog.target">目标目录</span>
+          <strong id="remove-target-path"></strong>
+        </p>
+        <div class="conflict-list" id="remove-relay-list"></div>
+        <div class="backup-note">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 7.5h16v12H4Z"></path>
+            <path d="M8 4.5h8v3H8ZM9 12h6"></path>
+          </svg>
+          <p id="remove-backup-note" data-i18n="removeDialog.backup">
+            确认后，识别到的调度文件会先保存到可恢复备份，再从当前目录移除。
+          </p>
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button class="secondary-button" id="cancel-remove-button" type="button" data-i18n="removeDialog.cancel">
+          取消
+        </button>
+        <button class="danger-button" id="confirm-remove-button" type="button" data-i18n="removeDialog.confirm">
+          移除并备份
+        </button>
+      </div>
+    </dialog>
+
+    <dialog class="readme-dialog" id="readme-dialog" aria-labelledby="readme-title">
+      <section class="readme-sheet">
+        <header class="readme-header">
+          <div class="readme-heading-copy">
+            <p class="dialog-eyebrow" data-i18n="readme.eyebrow">Relay 文档</p>
+            <h2 id="readme-title">README</h2>
+            <div class="readme-meta" aria-live="polite">
+              <span class="readme-language" id="readme-language">中文</span>
+              <code id="readme-file-name">README.md</code>
+            </div>
+          </div>
+          <button
+            class="readme-close-button"
+            id="readme-close-button"
+            type="button"
+            data-i18n-aria-label="readme.closeAria"
+          >
+            <span data-i18n="readme.close">关闭</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m6 6 12 12M18 6 6 18"></path>
+            </svg>
+          </button>
+        </header>
+
+        <div class="readme-reader">
+          <div class="readme-status" id="readme-status" role="status" aria-live="polite">
+            <span class="readme-spinner" aria-hidden="true"></span>
+            <div>
+              <strong data-i18n="readme.loadingTitle">正在读取 README</strong>
+              <p data-i18n="readme.loadingCopy">从当前 Relay 包载入对应语言的本地文档。</p>
+            </div>
+          </div>
+          <article class="readme-prose" id="readme-content" hidden></article>
+        </div>
+      </section>
+    </dialog>
+  </body>
+</html>

@@ -1,1 +1,7 @@
 .agents
+tools/relay-installer/.build/
+tools/relay-installer/dist/
+tools/relay-installer/*.spec
+tools/relay-installer/__pycache__/
+tools/relay-installer/tests/__pycache__/
+.relay-installer-backups

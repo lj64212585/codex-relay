@@ -14,6 +14,7 @@
 <p align="center">
   <a href="#choose-your-relay">Choose a Relay</a> ·
   <a href="#relative-implementation-quality-and-cost-estimates">Comparison estimates</a> ·
+  <a href="#use-relay-installer">Web installer</a> ·
   <a href="#quick-verification">Quick verification</a> ·
   <a href="#shared-principles">Shared principles</a> ·
   <a href="#repository-map">Repository map</a>
@@ -69,6 +70,44 @@ Luna or Terra keeps the parent conversation while Luna Max compresses optional e
 Parent Sol owns requirements, architecture, shared-file coordination, result acceptance, and final delivery while bounded packets with explicit sources, scope, checks, and stop conditions move through Explorer, Executor, and Reviewer lanes.
 
 **Complete guide: [sol-led-relay/README.en.md](../sol-led-relay/README.en.md)**
+
+## Use Relay Installer
+
+If you prefer not to copy Skill and Agent files by hand, start the configuration-driven local web installer from the repository root. It requires Python 3.11 or later, listens only on `127.0.0.1`, and provides English/Chinese UI plus light and dark themes.
+
+```powershell
+.\tools\relay-installer\start.ps1
+```
+
+After the page opens:
+
+1. Under **Installation scope**, choose **Global** or **Project**. Global affects only the current Windows user. In Project mode, enter the target root or select it with **Browse**.
+2. Choose one **Relay type**. Each horizontal option shows its task implementation quality and implementation cost estimates; use the **Details** button on the left to open the Relay README for the current UI language.
+3. Select **Check and install**. The installer preflights the target first. If another Relay is present, it explains that competing implicit-routing rules can conflict, then waits for confirmation before backing up and removing recognized old routing files and completing the install.
+4. To clean the active target, use the red **Remove Relay files from this directory** button at the bottom of Installation scope. The confirmation dialog lists the affected Relay and paths before anything is changed.
+
+> The installer touches only Skill directories and Agent files that can be attributed to its configuration; unknown custom files are not deleted. Before switching or removing a Relay, it stores recoverable content under `.relay-installer-backups` in the target root.
+
+<details>
+<summary><strong>Configuration check and executable packaging</strong></summary>
+
+Validate the configuration and every Relay source file without installing:
+
+```powershell
+py -3 -B .\tools\relay-installer\relay_installer.py --check
+```
+
+After installing PyInstaller, build the default directory package or a single executable:
+
+```powershell
+python -m pip install pyinstaller
+.\tools\relay-installer\build.ps1
+.\tools\relay-installer\build.ps1 -Mode onefile
+```
+
+Build output is written to `tools/relay-installer/dist`. See the **[Relay Installer reference (Chinese)](../tools/relay-installer/README.md)** for configuration fields, path boundaries, and packaging behavior.
+
+</details>
 
 ## Quick verification
 
@@ -142,6 +181,8 @@ codex-relay/
 │   └── README.en.md
 ├── sol-led-relay/                  # Parent-Sol-controlled 9-profile, three-lane package
 │   └── README.en.md
+├── tools/
+│   └── relay-installer/            # Local web UI for install, switch, removal, and packaging
 └── readme/
     ├── README.en.md                # This English repository overview
     └── assets/                     # Local visuals for the repository overview

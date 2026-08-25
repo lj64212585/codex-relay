@@ -14,6 +14,7 @@
 <p align="center">
   <a href="#选择适合你的-relay">选择 Relay</a> ·
   <a href="#相对完美度与成本估算">对比估值</a> ·
+  <a href="#使用-relay-installer">网页安装器</a> ·
   <a href="#快速验证">快速验证</a> ·
   <a href="#共同原则">共同原则</a> ·
   <a href="#仓库结构">仓库结构</a>
@@ -69,6 +70,44 @@ Luna 或 Terra 保持主对话，Luna Max 只负责压缩可选探索证据；�
 父级 Sol 负责需求、架构、共享文件协调、结果接纳与最终交付，同时把来源、范围、检查和停止条件明确的任务切片送入 Explorer、Executor 与 Reviewer 专用回路。
 
 **完整指南：[sol-led-relay/README.md](./sol-led-relay/README.md)**
+
+## 使用 Relay Installer
+
+如果不想手工复制 Skill 和 Agent 文件，可以从仓库根目录启动配置驱动的本地网页安装器。它要求 Python 3.11 或更高版本，仅监听 `127.0.0.1`，并提供中英文界面与夜间模式。
+
+```powershell
+.\tools\relay-installer\start.ps1
+```
+
+打开网页后：
+
+1. 在“安装范围”选择“全局”或“项目”。全局只作用于当前 Windows 用户；项目模式可输入目标根目录，或点击“浏览目录”。
+2. 在“Relay 类型”选择一种调度。每个横向选项会显示任务实现完美度与实现成本；点击左侧“详情”，可以查看当前界面语言对应的 Relay README。
+3. 点击“检查并安装”。安装器会先预检目标；若发现其他 Relay，会说明多个调度的隐式路由可能互相冲突，并在获得确认后备份、移除已识别的旧调度，再完成安装。
+4. 如需清理当前目标，点击“安装范围”底部的红色“移除当前目录的调度文件”按钮。确认框会列出将被移除的 Relay 和路径，确认后才执行。
+
+> 安装器只处理配置中能够明确归属的 Skill 目录和 Agent 文件，不会删除未知自定义文件。切换或移除前的内容会保存到目标根目录的 `.relay-installer-backups`，便于恢复。
+
+<details>
+<summary><strong>配置检查与可执行文件打包</strong></summary>
+
+只检查配置与所有 Relay 源文件：
+
+```powershell
+py -3 -B .\tools\relay-installer\relay_installer.py --check
+```
+
+安装 PyInstaller 后，可生成默认的目录版产物，或单文件可执行程序：
+
+```powershell
+python -m pip install pyinstaller
+.\tools\relay-installer\build.ps1
+.\tools\relay-installer\build.ps1 -Mode onefile
+```
+
+产物写入 `tools/relay-installer/dist`。完整的配置字段、路径边界与打包行为见 **[Relay Installer 文档](./tools/relay-installer/README.md)**。
+
+</details>
 
 ## 快速验证
 
@@ -142,6 +181,8 @@ codex-relay/
 │   └── README.md
 ├── sol-led-relay/                  # 父级 Sol 控制三车道的 9-profile 调度包
 │   └── README.md
+├── tools/
+│   └── relay-installer/            # 支持安装、切换、移除与打包的本地网页安装器
 └── readme/
     ├── README.en.md                # 根 README 的英文版本
     └── assets/                     # 根 README 的本地视觉资源

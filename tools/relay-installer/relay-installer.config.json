@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "sourceRoot": "../..",
+  "relays": [
+    {
+      "id": "poor-relay",
+      "name": "Poor Relay",
+      "badge": "低成本 · 五角色",
+      "description": "用规划、探索、执行、审查与集成五个角色处理多步骤任务。",
+      "metrics": {
+        "taskPerfectionPercent": 95,
+        "implementationCostPercent": 45
+      },
+      "translations": {
+        "en": {
+          "name": "Poor Relay",
+          "badge": "Budget · Five roles",
+          "description": "Plan, explore, execute, review, and integrate multi-step work with five focused roles."
+        }
+      },
+      "sourcePath": "poor-relay",
+      "readmes": {
+        "zh-CN": "README.md",
+        "en": "README.en.md"
+      },
+      "skill": {
+        "source": "skills/poor-relay",
+        "target": ".agents/skills/poor-relay"
+      },
+      "agents": {
+        "source": "agents",
+        "target": ".codex/agents",
+        "files": [
+          "tm_planner.toml",
+          "tm_explorer.toml",
+          "tm_executor.toml",
+          "tm_reviewer.toml",
+          "tm_integrator.toml"
+        ]
+      }
+    },
+    {
+      "id": "sol-pair-relay",
+      "name": "Sol Pair Relay",
+      "badge": "双 Sol · 三角色",
+      "description": "由临时规划与独立执行接力，保留 Explorer 作为只读证据通道。",
+      "metrics": {
+        "taskPerfectionPercent": 120,
+        "implementationCostPercent": 180
+      },
+      "translations": {
+        "en": {
+          "name": "Sol Pair Relay",
+          "badge": "Dual Sol · Three roles",
+          "description": "Hand work from a temporary planner to an independent executor, with Explorer as a read-only evidence lane."
+        }
+      },
+      "sourcePath": "sol-pair-relay",
+      "readmes": {
+        "zh-CN": "README.md",
+        "en": "README.en.md"
+      },
+      "skill": {
+        "source": "skills/sol-pair-relay",
+        "target": ".agents/skills/sol-pair-relay"
+      },
+      "agents": {
+        "source": "agents",
+        "target": ".codex/agents",
+        "files": [
+          "tm_explorer.toml",
+          "tm_planner.toml",
+          "tm_executor.toml"
+        ]
+      }
+    },
+    {
+      "id": "sol-led-relay",
+      "name": "Sol-led Relay",
+      "badge": "完整编排 · 九角色",
+      "description": "覆盖代码、文档、运行时、执行与验证的完整父级编排方案。",
+      "metrics": {
+        "taskPerfectionPercent": 115,
+        "implementationCostPercent": 85
+      },
+      "translations": {
+        "en": {
+          "name": "Sol-led Relay",
+          "badge": "Full orchestration · Nine roles",
+          "description": "A complete parent-led system for code, docs, runtime evidence, execution, and verification."
+        }
+      },
+      "sourcePath": "sol-led-relay",
+      "readmes": {
+        "zh-CN": "README.md",
+        "en": "README.en.md"
+      },
+      "skill": {
+        "source": "skills/sol-led-relay",
+        "target": ".agents/skills/sol-led-relay"
+      },
+      "agents": {
+        "source": "agents",
+        "target": ".codex/agents",
+        "files": [
+          "bounded_executor.toml",
+          "code_explorer.toml",
+          "code_reviewer.toml",
+          "docs_researcher.toml",
+          "mechanical_executor.toml",
+          "minimal_fixer.toml",
+          "runtime_investigator.toml",
+          "runtime_investigator_deep.toml",
+          "verification_reviewer.toml"
+        ]
+      }
+    },
+    {
+      "id": "sol-explore-relay",
+      "name": "Sol Explore Relay",
+      "badge": "只读探索 · 四角色",
+      "description": "只分派代码、文档与运行时探索，实施和集成继续由父会话负责。",
+      "metrics": {
+        "taskPerfectionPercent": 110,
+        "implementationCostPercent": 90
+      },
+      "translations": {
+        "en": {
+          "name": "Sol Explore Relay",
+          "badge": "Read-only exploration · Four roles",
+          "description": "Delegate code, docs, and runtime exploration while implementation and integration stay with the parent."
+        }
+      },
+      "sourcePath": "sol-explore-relay",
+      "readmes": {
+        "zh-CN": "README.md",
+        "en": "README.en.md"
+      },
+      "skill": {
+        "source": "skills/sol-explore-relay",
+        "target": ".agents/skills/sol-explore-relay"
+      },
+      "agents": {
+        "source": "agents",
+        "target": ".codex/agents",
+        "files": [
+          "sol_explore_code.toml",
+          "sol_explore_docs.toml",
+          "sol_explore_runtime.toml",
+          "sol_explore_runtime_deep.toml"
+        ]
+      }
+    }
+  ]
+}
