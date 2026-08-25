@@ -1,16 +1,23 @@
 from __future__ import annotations
 
 import json
+import os
+import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 
 from relay_installer import (
     ConfigError,
     ConflictError,
     RelayInstallerService,
     UnsafeCollisionError,
+    _run_desktop_window,
+    app_version,
     load_installer_config,
+    main,
 )
 
 
@@ -139,6 +146,85 @@ class RelayInstallerServiceTests(unittest.TestCase):
                 "implementationCostPercent": 75,
             },
             public_relay["metrics"],
+        )
+
+    def test_exposes_application_version_in_bootstrap(self) -> None:
+        alpha = self._create_relay("alpha-relay", ["alpha.toml"], "alpha")
+        service = self._service([alpha])
+
+        self.assertEqual(app_version(), service.bootstrap()["appVersion"])
+
+    def test_writes_version_report_without_loading_config(self) -> None:
+        report_path = self.root / "version.txt"
+
+        result = main(["--write-version", str(report_path)])
+
+        self.assertEqual(0, result)
+        self.assertEqual(
+            app_version(),
+            report_path.read_text(encoding="utf-8").strip(),
+        )
+
+    def test_desktop_window_uses_edge_webview_and_stops_server(self) -> None:
+        calls: dict[str, object] = {}
+
+        class FakeServer:
+            def serve_forever(self, *, poll_interval: float) -> None:
+                calls["pollInterval"] = poll_interval
+
+            def shutdown(self) -> None:
+                calls["shutdown"] = True
+
+            def server_close(self) -> None:
+                calls["serverClose"] = True
+
+        def create_window(title: str, url: str, **options: object) -> None:
+            calls["title"] = title
+            calls["url"] = url
+            calls["windowOptions"] = options
+
+        def start(**options: object) -> None:
+            calls["startOptions"] = options
+
+        fake_webview = SimpleNamespace(
+            create_window=create_window,
+            start=start,
+        )
+        storage_root = self.root / "local-app-data"
+        with (
+            patch.dict(sys.modules, {"webview": fake_webview}),
+            patch.dict(os.environ, {"LOCALAPPDATA": str(storage_root)}),
+        ):
+            result = _run_desktop_window(
+                FakeServer(),  # type: ignore[arg-type]
+                "http://127.0.0.1:43123/",
+                verbose=False,
+            )
+
+        self.assertEqual(0, result)
+        self.assertEqual("http://127.0.0.1:43123/", calls["url"])
+        self.assertEqual("edgechromium", calls["startOptions"]["gui"])
+        self.assertFalse(calls["startOptions"]["private_mode"])
+        self.assertTrue(calls["shutdown"])
+        self.assertTrue(calls["serverClose"])
+
+    def test_web_ui_defaults_to_english(self) -> None:
+        installer_root = Path(__file__).resolve().parents[1]
+        app_script = (installer_root / "web/app.js").read_text(encoding="utf-8")
+        index_html = (installer_root / "web/index.html").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn('locale: "en"', app_script)
+        self.assertIn('applyLanguage(stored || "en", false)', app_script)
+        self.assertNotIn("navigator.language.toLowerCase()", app_script)
+        self.assertIn('<html lang="en">', index_html)
+        self.assertIn(
+            'class="language-option is-active"\n'
+            '              type="button"\n'
+            '              data-locale="en"\n'
+            '              aria-pressed="true"',
+            index_html,
         )
 
     def test_rejects_invalid_relay_metric(self) -> None:

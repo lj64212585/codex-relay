@@ -23,6 +23,11 @@ from urllib.parse import unquote, urlparse
 
 APP_NAME = "Relay Installer"
 CONFIG_NAME = "relay-installer.config.json"
+VERSION_NAME = "relay-installer.version"
+DEVELOPMENT_VERSION = "0.0.0-dev"
+DESKTOP_WINDOW_WIDTH = 1280
+DESKTOP_WINDOW_HEIGHT = 800
+DESKTOP_WINDOW_MIN_SIZE = (900, 640)
 MAX_REQUEST_BYTES = 1024 * 1024
 MAX_README_BYTES = 512 * 1024
 MAX_README_ASSET_BYTES = 2 * 1024 * 1024
@@ -438,6 +443,7 @@ class RelayInstallerService:
     def bootstrap(self) -> dict[str, Any]:
         return {
             "appName": APP_NAME,
+            "appVersion": app_version(),
             "globalPath": str(self.home_root),
             "defaultProjectPath": str(self.default_project_root),
             "configPath": str(self.config.config_path),
@@ -1033,6 +1039,23 @@ def _runtime_roots() -> list[Path]:
     return unique
 
 
+def app_version() -> str:
+    roots = (
+        [Path(getattr(sys, "_MEIPASS")).resolve()]
+        if hasattr(sys, "_MEIPASS")
+        else [Path(__file__).resolve().parent]
+    )
+    for root in roots:
+        candidate = root / VERSION_NAME
+        try:
+            version = candidate.read_text(encoding="utf-8").strip()
+        except OSError:
+            continue
+        if version:
+            return version
+    return DEVELOPMENT_VERSION
+
+
 def default_config_path() -> Path:
     for root in _runtime_roots():
         candidate = root / CONFIG_NAME
@@ -1066,7 +1089,7 @@ def make_request_handler(
     }
 
     class RequestHandler(BaseHTTPRequestHandler):
-        server_version = "RelayInstaller/1.0"
+        server_version = f"RelayInstaller/{app_version()}"
 
         def log_message(self, format_string: str, *args: Any) -> None:
             if getattr(self.server, "verbose", False):
@@ -1307,6 +1330,11 @@ def _build_parser() -> argparse.ArgumentParser:
         description="启动配置驱动的 Relay 本地网页安装器。"
     )
     parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {app_version()}",
+    )
+    parser.add_argument(
         "--config",
         type=Path,
         default=None,
@@ -1333,18 +1361,116 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="输出 HTTP 访问日志。",
     )
+    parser.add_argument(
+        "--desktop",
+        action="store_true",
+        help=argparse.SUPPRESS,
+    )
+    parser.add_argument(
+        "--write-version",
+        type=Path,
+        default=None,
+        help=argparse.SUPPRESS,
+    )
     return parser
 
 
 def _configure_standard_streams() -> None:
-    for stream in (sys.stdout, sys.stderr):
+    for stream_name in ("stdout", "stderr"):
+        stream = getattr(sys, stream_name)
+        if stream is None:
+            stream = open(os.devnull, "w", encoding="utf-8")
+            setattr(sys, stream_name, stream)
         if hasattr(stream, "reconfigure"):
             stream.reconfigure(encoding="utf-8", errors="replace")
+
+
+def _show_desktop_error(message: str) -> None:
+    if os.name == "nt":
+        try:
+            import ctypes
+
+            ctypes.windll.user32.MessageBoxW(0, message, APP_NAME, 0x10)
+            return
+        except Exception:
+            pass
+    print(f"[ERROR] {message}", file=sys.stderr)
+
+
+def _desktop_storage_path() -> Path:
+    local_app_data = os.environ.get("LOCALAPPDATA")
+    if local_app_data:
+        return Path(local_app_data) / "Codex Relay" / "Relay Installer"
+    return Path.home() / ".codex-relay" / "relay-installer"
+
+
+def _run_desktop_window(
+    server: HTTPServer,
+    url: str,
+    *,
+    verbose: bool,
+) -> int:
+    try:
+        import webview
+    except ImportError:
+        server.server_close()
+        _show_desktop_error(
+            "桌面窗口组件未包含在程序中。请安装 pywebview 后重新打包。"
+        )
+        return 3
+
+    server_thread = threading.Thread(
+        target=server.serve_forever,
+        kwargs={"poll_interval": 0.25},
+        name="relay-installer-http",
+        daemon=True,
+    )
+    server_thread.start()
+    try:
+        webview.create_window(
+            f"{APP_NAME} v{app_version()}",
+            url,
+            width=DESKTOP_WINDOW_WIDTH,
+            height=DESKTOP_WINDOW_HEIGHT,
+            min_size=DESKTOP_WINDOW_MIN_SIZE,
+            background_color="#10131a",
+        )
+        storage_path = _desktop_storage_path()
+        storage_path.mkdir(parents=True, exist_ok=True)
+        webview.start(
+            gui="edgechromium",
+            debug=verbose,
+            private_mode=False,
+            storage_path=str(storage_path),
+        )
+    except Exception as error:
+        _show_desktop_error(
+            "无法启动 Relay Installer 桌面窗口。\n\n"
+            "请确认系统已安装 Microsoft Edge WebView2 Runtime。\n\n"
+            f"详细信息：{error}"
+        )
+        return 3
+    finally:
+        server.shutdown()
+        server.server_close()
+        server_thread.join(timeout=2.0)
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:
     _configure_standard_streams()
     args = _build_parser().parse_args(argv)
+    if args.write_version is not None:
+        try:
+            args.write_version.write_text(
+                app_version() + "\n",
+                encoding="utf-8",
+            )
+        except OSError as error:
+            print(f"[ERROR] 无法写入版本报告：{error}", file=sys.stderr)
+            return 2
+        return 0
+
     config_path = args.config or default_config_path()
     try:
         config = load_installer_config(config_path)
@@ -1352,10 +1478,13 @@ def main(argv: list[str] | None = None) -> int:
         if not args.check and not web_root.is_dir():
             raise ConfigError(f"找不到网页资源目录：{web_root}")
     except RelayInstallerError as error:
+        if args.desktop:
+            _show_desktop_error(str(error))
         print(f"[ERROR] {error}", file=sys.stderr)
         return 2
 
     if args.check:
+        print(f"[OK] 安装器版本：{app_version()}")
         print(f"[OK] 配置有效：{config.config_path}")
         print(f"[OK] Relay 源目录：{config.source_root}")
         print(f"[OK] 已发现 {len(config.relays)} 种 Relay。")
@@ -1364,12 +1493,21 @@ def main(argv: list[str] | None = None) -> int:
     service = RelayInstallerService(config)
     session_token = secrets.token_urlsafe(32)
     handler = make_request_handler(service, web_root, session_token)
-    server = HTTPServer(("127.0.0.1", args.port), handler)
+    try:
+        server = HTTPServer(("127.0.0.1", args.port), handler)
+    except OSError as error:
+        if args.desktop:
+            _show_desktop_error(f"无法启动本地服务：{error}")
+        print(f"[ERROR] 无法启动本地服务：{error}", file=sys.stderr)
+        return 2
     server.verbose = args.verbose  # type: ignore[attr-defined]
     port = server.server_address[1]
     url = f"http://127.0.0.1:{port}/"
 
-    print(f"[READY] {APP_NAME}: {url}")
+    if args.desktop:
+        return _run_desktop_window(server, url, verbose=args.verbose)
+
+    print(f"[READY] {APP_NAME} {app_version()}: {url}")
     print(f"[CONFIG] {config.config_path}")
     print("[STOP] 按 Ctrl+C 停止本地服务。")
     if not args.no_browser:

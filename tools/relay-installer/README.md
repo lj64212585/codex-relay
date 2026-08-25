@@ -1,6 +1,6 @@
 # Relay Installer
 
-这是一个配置驱动的本地网页安装器。它把 Relay 安装到当前 Windows 用户，或安装到指定项目根目录；网页只负责交互，实际目录选择、冲突检查、备份和文件复制由监听在 127.0.0.1 的 Python 本地服务完成。界面支持中文与英文切换，并提供浅色、夜间两套主题。
+这是一个配置驱动的 Relay 安装器。源码入口以本地网页方式运行；打包后的 Win64 EXE 会把同一套界面嵌入独立的 Windows 桌面窗口，不创建命令行窗口，也不打开系统浏览器。实际目录选择、冲突检查、备份和文件复制由只监听 127.0.0.1 的 Python 本地服务完成。关闭桌面窗口时，该服务会一并退出。支持中文与英文切换，并提供浅色、夜间两套主题。
 
 ## 直接运行
 
@@ -28,7 +28,7 @@ py -3 -B .\tools\relay-installer\relay_installer.py --check
 - Relay 类型使用纵向排列的横向长条；每个名称下方显示“任务实现完美度 / 实现成本”相对估值，默认值与仓库根目录 README 的对比表一致。每条左侧的“详情”按钮独立于单选区域，打开与当前界面语言对应的 README 抽屉，不会改变已选择的 Relay。
 - “安装范围”底部提供红色“移除当前目录的调度文件”按钮。安装器会先只读识别当前全局或项目目标中的已知 Relay，再通过确认框列出 Relay、状态、目标目录和具体路径；用户确认后才会移除。
 - 较窄窗口、低高度窗口和移动设备自动切换为可滚动布局，不会产生横向溢出。
-- 顶栏的“中文 / EN”切换会立即更新静态文案、Relay 说明、安装结果、预检状态和冲突确认框；语言选择保存在当前浏览器中。
+- 顶栏的“中文 / EN”切换会立即更新静态文案、Relay 说明、安装结果、预检状态和冲突确认框；没有已保存偏好时默认使用英文，手动选择后保存在当前浏览器中。
 - 夜间模式选择同样会保存在当前浏览器中，并保留可见键盘焦点与系统“减少动态效果”偏好。
 
 ## 安装边界
@@ -67,24 +67,26 @@ py -3 -B .\tools\relay-installer\relay_installer.py --check
 
 ## 打包
 
-仓库级 Win64 打包入口会把网页工具、配置与当前配置列出的四套 Relay 全部固化进一个 EXE，并在构建后调用 EXE 的 `--check` 检查包内内容：
+仓库级 Win64 打包入口会从 `packaging/version.txt` 读取版本号，把桌面窗口、网页工具、配置与当前配置列出的四套 Relay 全部固化进一个 EXE，并在构建后检查桌面入口、包内内容、内置版本和 Windows 版本元数据：
 
 ~~~powershell
-python -m pip install pyinstaller
+python -m pip install -r .\tools\relay-installer\requirements-build.txt
 .\packaging\build-win64.bat
 ~~~
 
-产物位于 `packaging/out/win64/relay-installer.exe`。BAT 会要求选中的 Python 是 64 位 Windows Python；`packaging/.gitignore` 会保留 BAT 与忽略规则自身，并忽略 `out/` 等其他生成内容。
+版本文件只写一行 `MAJOR.MINOR.PATCH` 或 `MAJOR.MINOR.PATCH.BUILD`，例如 `1.0.0`；每段必须在 0—65535 之间。它以及 `packaging/` 下的其他内容都由该目录的 `.gitignore` 忽略，不进入 Git。产物名为 `packaging/out/win64/relay-installer-v<版本号>.exe`；版本同时显示在窗口标题与 Windows 文件属性中。
 
-需要直接控制底层构建时，可调用 build.ps1。它默认使用 onedir 并写入 `tools/relay-installer/dist`，也接受自定义输出目录与 Win64 检查：
+桌面窗口使用系统的 Microsoft Edge WebView2 Runtime。当前 Windows 10/11 通常已经包含该运行时；如果目标机器缺少它，程序会显示明确错误，而不是静默退出或改为打开浏览器。
+
+需要直接控制底层构建时，可调用 build.ps1。它默认读取 `packaging/version.txt`，使用 onedir 并写入 `tools/relay-installer/dist`；也接受自定义版本文件、输出目录、Win64 检查与产物验证：
 
 ~~~powershell
 .\tools\relay-installer\build.ps1
 .\tools\relay-installer\build.ps1 -Mode onefile
-.\tools\relay-installer\build.ps1 -Mode onefile -OutputDirectory packaging\out\win64 -RequireWin64
+.\tools\relay-installer\build.ps1 -Mode onefile -OutputDirectory packaging\out\win64 -RequireWin64 -VersionFile packaging\version.txt -VerifyPackage
 ~~~
 
-构建脚本不会自动安装 PyInstaller。包内配置把 sourceRoot 改为 relay-packages，入口在冻结环境中会优先读取可执行文件旁的外部配置，其次读取包内配置。因此既可以使用固化进可执行文件的 Relay，也可以在 EXE 旁放置同名配置，改用外部 Relay 目录。
+构建脚本不会自动安装 PyInstaller 或 pywebview；二者都由 `requirements-build.txt` 声明。包内配置把 sourceRoot 改为 relay-packages，入口在冻结环境中会优先读取可执行文件旁的外部配置，其次读取包内配置。因此既可以使用固化进可执行文件的 Relay，也可以在 EXE 旁放置同名配置，改用外部 Relay 目录。
 
 ## 验证
 

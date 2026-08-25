@@ -76,7 +76,7 @@ const translations = {
     "summary.relayPending": "尚未选择",
     "summary.contentPending": "Skill + Agent profiles",
     "summary.contentValue": "1 个 Skill + {count} 个 Agent profiles",
-    "summary.localNote": "服务仅监听 127.0.0.1；关闭终端即可停止。",
+    "summary.localNote": "服务仅监听 127.0.0.1；退出安装器即可停止。",
     "summary.pending": "待检查",
     "summary.ready": "可安装",
     "summary.warning": "有冲突",
@@ -217,7 +217,7 @@ const translations = {
     "summary.relayPending": "Not selected",
     "summary.contentPending": "Skill + Agent profiles",
     "summary.contentValue": "1 Skill + {count} Agent profiles",
-    "summary.localNote": "The service listens only on 127.0.0.1. Close the terminal to stop it.",
+    "summary.localNote": "The service listens only on 127.0.0.1. Exit Relay Installer to stop it.",
     "summary.pending": "Pending",
     "summary.ready": "Ready",
     "summary.warning": "Conflict",
@@ -288,7 +288,7 @@ const translations = {
 const state = {
   bootstrap: null,
   sessionToken: "",
-  locale: "zh-CN",
+  locale: "en",
   scope: "global",
   projectPath: "",
   relayId: "",
@@ -362,10 +362,10 @@ class ApiError extends Error {
 }
 
 function t(key, parameters) {
-  const localeTable = translations[state.locale] || translations["zh-CN"];
+  const localeTable = translations[state.locale] || translations.en;
   let value = localeTable[key];
   if (typeof value !== "string") {
-    value = translations["zh-CN"][key] || key;
+    value = translations.en[key] || key;
   }
   return value.replace(/\{(\w+)\}/g, function (_match, name) {
     return parameters && parameters[name] !== undefined
@@ -433,7 +433,7 @@ function getSelectedRelay() {
 }
 
 function applyLanguage(locale, persist) {
-  state.locale = locale === "en" ? "en" : "zh-CN";
+  state.locale = locale === "zh-CN" ? "zh-CN" : "en";
   document.documentElement.lang = state.locale;
   document.title = t("app.title");
 
@@ -493,10 +493,7 @@ function applyLanguage(locale, persist) {
 
 function initializeLanguage() {
   const stored = localStorage.getItem("relay-installer-locale");
-  const preferred = navigator.language.toLowerCase().startsWith("zh")
-    ? "zh-CN"
-    : "en";
-  applyLanguage(stored || preferred, false);
+  applyLanguage(stored || "en", false);
 }
 
 function updateThemeA11y() {
