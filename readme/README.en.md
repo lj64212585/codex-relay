@@ -13,6 +13,7 @@
 
 <p align="center">
   <a href="#choose-your-relay">Choose a Relay</a> ·
+  <a href="#relative-implementation-quality-and-cost-estimates">Comparison estimates</a> ·
   <a href="#quick-verification">Quick verification</a> ·
   <a href="#shared-principles">Shared principles</a> ·
   <a href="#repository-map">Repository map</a>
@@ -28,6 +29,22 @@
 | [Sol Explore Relay](../sol-explore-relay/README.en.md) | Save search context while parent Sol implements the task itself | **Only 4 read-only Explore profiles** | Quality-sensitive work, shared files, avoiding implementation handoffs |
 | [Sol Pair Relay](../sol-pair-relay/README.en.md) | Give separate Sol agents clean planning and execution contexts | Luna Max explores, one Sol Max plans, a second Sol Max executes and accepts | Luna / Terra parent conversations, implementation quality, temporary plans that prevent drift |
 | [Sol-led Relay](../sol-led-relay/README.en.md) | Keep decision, integration, and delivery authority with parent Sol | Explore ×4, Execute ×3, Review ×2 | Complex projects with bounded slices and independent review |
+
+## Relative implementation quality and cost estimates
+
+The following figures are relative estimates for the **same medium-to-high-complexity engineering task**. A single Sol completing exploration, implementation, checks, and acceptance in one parent session is set to `100%`. Task implementation quality is a relative index rather than an absolute success rate, so it may exceed `100%`; implementation cost measures total model reasoning consumption across all participating Agents and excludes human, device, release, or external-system acceptance costs.
+
+| Routing strategy | Task implementation quality | Implementation cost | Basis for the estimate |
+| --- | ---: | ---: | --- |
+| Single Sol working alone | **100%** | **100%** | Baseline; no handoff loss and no review gain from an independent context |
+| [Poor Relay](../poor-relay/README.en.md) | ${\color[RGB]{154,103,0}\mathbf{95\%}}$ | ${\color[RGB]{26,127,55}\mathbf{45\%}}$ | Luna handles exploration and routine implementation while Terra and Sol enter only for risk, planning, or integration; it has the lowest cost, with some subtle implementation quality and global consistency traded for budget |
+| [Sol Explore Relay](../sol-explore-relay/README.en.md) | ${\color[RGB]{26,127,55}\mathbf{110\%}}$ | ${\color[RGB]{26,127,55}\mathbf{90\%}}$ | Luna / Terra isolates noisy exploration while parent Sol retains full implementation authority; less context pollution buys a quality gain for modest dispatch and recheck overhead |
+| [Sol Pair Relay](../sol-pair-relay/README.en.md) | ${\color[RGB]{26,127,55}\mathbf{120\%}}$ | ${\color[RGB]{207,34,46}\mathbf{180\%}}$ | Two fresh Sol Max agents separately plan and execute with acceptance, giving the highest quality ceiling; duplicated understanding, plan handoff, and two Sol reasoning passes also make it the most expensive |
+| [Sol-led Relay](../sol-led-relay/README.en.md) | ${\color[RGB]{26,127,55}\mathbf{115\%}}$ | ${\color[RGB]{26,127,55}\mathbf{85\%}}$ | Parent Sol keeps decisions and integration, Luna executes bounded slices, and Terra reviews independently; despite multi-role coordination overhead, it balances high quality with lower cost |
+
+> These figures compare routing priorities; they are not measured benchmarks. One-step tasks usually cannot amortize dispatch cost. As task complexity and exploration noise increase—and slice boundaries become clearer—the relative benefit of each Relay is more likely to approach the estimate above.
+>
+> You can adjust each profile's model reasoning strength (`model_reasoning_effort`) within every routing strategy to match your task complexity, quality target, and budget. The table assumes the repository defaults; changing those settings will also change the quality and cost estimates.
 
 ### Poor Relay — cost first
 

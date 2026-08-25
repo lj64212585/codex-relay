@@ -13,6 +13,7 @@
 
 <p align="center">
   <a href="#选择适合你的-relay">选择 Relay</a> ·
+  <a href="#相对完美度与成本估算">对比估值</a> ·
   <a href="#快速验证">快速验证</a> ·
   <a href="#共同原则">共同原则</a> ·
   <a href="#仓库结构">仓库结构</a>
@@ -28,6 +29,22 @@
 | [Sol Explore Relay](./sol-explore-relay/README.md) | 节约检索上下文，同时让父级 Sol 亲自实现 | **仅 4 个只读 Explore profile** | 质量敏感、共享文件多、希望避免实现交接 |
 | [Sol Pair Relay](./sol-pair-relay/README.md) | 让两个 Sol 分别获得干净的规划与执行上下文 | Luna Max 探索、Sol Max 规划、另一个 Sol Max 执行验收 | Luna / Terra 主对话、实现质量优先、需要临时计划防偏 |
 | [Sol-led Relay](./sol-led-relay/README.md) | 让父级 Sol 保留决策、集成与交付权 | Explore ×4、Execute ×3、Review ×2 | 复杂项目、适合有界切片与独立审核 |
+
+## 相对完美度与成本估算
+
+以下数值是面向**同一个中高复杂度工程任务**的相对估值：由单个 Sol 在同一主会话独立完成探索、实现、检查与验收，记为 `100%`。任务实现完美度是相对质量指数，不是绝对成功率，因此可以高于 `100%`；实现成本统计各参与 Agent 的总体模型推理消耗，不包含人工、设备、发布或外部系统验收成本。
+
+| 调度方式 | 任务实现完美度 | 实现成本 | 估值依据 |
+| --- | ---: | ---: | --- |
+| 单个 Sol 独立完成 | **100%** | **100%** | 基准；没有交接损耗，也没有独立上下文带来的复核增益 |
+| [Poor Relay](./poor-relay/README.md) | ${\color[RGB]{154,103,0}\mathbf{95\%}}$ | ${\color[RGB]{26,127,55}\mathbf{45\%}}$ | Luna 承担探索与常规实现，Terra 和 Sol 只在风险、规划或集成节点介入；成本最低，但细腻实现与全局一致性略让位于预算 |
+| [Sol Explore Relay](./sol-explore-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{110\%}}$ | ${\color[RGB]{26,127,55}\mathbf{90\%}}$ | Luna / Terra 隔离高噪声探索，父级 Sol 保留完整实现权；减少上下文污染，以少量派发和复核开销换取质量提升 |
+| [Sol Pair Relay](./sol-pair-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{120\%}}$ | ${\color[RGB]{207,34,46}\mathbf{180\%}}$ | 两个全新的 Sol Max 分别规划和实现验收，质量上限最高；重复理解、计划交接与双 Sol 推理也使成本最高 |
+| [Sol-led Relay](./sol-led-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{115\%}}$ | ${\color[RGB]{26,127,55}\mathbf{85\%}}$ | 父级 Sol 保留决策与集成，Luna 执行有界切片，Terra 独立复核；在多角色协调开销下仍兼顾较高质量与较低成本 |
+
+> 这些数值用于比较调度取向，不是实测 benchmark。一步式小任务通常无法摊薄派发成本；任务越复杂、探索噪声越大、切片边界越清晰，Relay 的相对收益越接近表中估值。
+>
+> 你可以按自己的任务复杂度、质量目标和预算，调整每种调度中各 profile 的模型推理强度（`model_reasoning_effort`）；上表数值只对应仓库默认配置，调整后完美度与成本估值也会随之变化。
 
 ### Poor Relay — 成本优先
 
