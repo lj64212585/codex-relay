@@ -1,0 +1,7 @@
+interface:
+  display_name: "Sol Pair Relay"
+  short_description: "由 Luna 或 Terra 主对话，让两个独立 Sol 分别规划与执行验收"
+  default_prompt: "Use $sol-pair-relay to plan and execute this implementation through two fresh Sol contexts."
+
+policy:
+  allow_implicit_invocation: true

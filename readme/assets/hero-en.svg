@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="570" viewBox="0 0 1200 570" role="img" aria-labelledby="title desc">
   <title id="title">Codex Relay</title>
-  <desc id="desc">Codex Relay contains three routing strategies: cost-first Poor Relay, Explore-only Sol Explore Relay, and Sol-led Relay with three parent-controlled lanes.</desc>
+  <desc id="desc">Codex Relay contains four routing strategies: cost-first Poor Relay, Explore-only Sol Explore Relay, Sol Pair Relay with two fresh Sol contexts, and Sol-led Relay with complete parent-controlled lanes.</desc>
 
   <defs>
     <pattern id="selector-grid" width="52" height="52" patternUnits="userSpaceOnUse">
@@ -8,78 +8,92 @@
     </pattern>
   </defs>
 
-  <rect width="1200" height="500" rx="28" fill="#080B0D"/>
-  <rect x="1" y="1" width="1198" height="498" rx="27" fill="none" stroke="#2A333A" stroke-width="2"/>
-  <rect width="1200" height="500" rx="28" fill="url(#selector-grid)"/>
+  <rect width="1200" height="570" rx="28" fill="#080B0D"/>
+  <rect x="1" y="1" width="1198" height="568" rx="27" fill="none" stroke="#2A333A" stroke-width="2"/>
+  <rect width="1200" height="570" rx="28" fill="url(#selector-grid)"/>
 
-  <g id="identity" transform="translate(56 52)">
-    <path d="M0 10H32L42 2L52 18L62 10H96" fill="none" stroke="#91E66C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    <text x="114" y="17" fill="#9BA6AF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700" letter-spacing="1.7">MULTI-AGENT ROUTING PACKAGES</text>
+  <g id="identity" transform="translate(54 50)">
+    <path d="M0 10H28L38 2L48 18L58 10H88" fill="none" stroke="#91E66C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="104" y="17" fill="#9BA6AF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700" letter-spacing="1.4">MULTI-AGENT ROUTING</text>
 
-    <text x="0" y="126" fill="#F5F1E8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="70" font-weight="800" letter-spacing="-2">CODEX</text>
-    <text x="0" y="196" fill="none" stroke="#F5B942" stroke-width="2" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="70" font-weight="800" letter-spacing="5">RELAY</text>
+    <text x="0" y="132" fill="#F5F1E8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="68" font-weight="800" letter-spacing="-2">CODEX</text>
+    <text x="0" y="201" fill="none" stroke="#F5B942" stroke-width="2" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="68" font-weight="800" letter-spacing="5">RELAY</text>
 
-    <text x="2" y="258" fill="#D7DBDE" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="25" font-weight="700">Three routing philosophies.</text>
-    <text x="2" y="296" fill="#D7DBDE" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="25" font-weight="700">One clear boundary.</text>
-    <text x="2" y="340" fill="#929DA7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20">Choose how much work may leave the parent session.</text>
+    <text x="2" y="270" fill="#D7DBDE" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="25" font-weight="700">Four routing philosophies.</text>
+    <text x="2" y="309" fill="#D7DBDE" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="25" font-weight="700">One clear boundary.</text>
+    <text x="2" y="355" fill="#929DA7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20">Choose how work leaves the parent session</text>
+    <text x="2" y="385" fill="#929DA7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20">by the context, authority, and quality you protect.</text>
 
-    <g transform="translate(2 406)" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700">
-      <text x="0" y="0" fill="#91E66C">03</text>
+    <g transform="translate(2 472)" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700">
+      <text x="0" y="0" fill="#91E66C">04</text>
       <text x="28" y="0" fill="#8D98A1">PACKAGES</text>
       <text x="126" y="0" fill="#3D474E">/</text>
-      <text x="148" y="0" fill="#F5B942">03</text>
+      <text x="148" y="0" fill="#F5B942">04</text>
       <text x="176" y="0" fill="#8D98A1">AUTHORITY MODELS</text>
     </g>
   </g>
 
-  <path d="M540 42V458" stroke="#2A333A" stroke-width="2"/>
+  <path d="M500 42V528" stroke="#2A333A" stroke-width="2"/>
 
-  <g id="relay-selector" transform="translate(576 36)">
+  <g id="relay-selector" transform="translate(536 26)">
     <g id="poor-relay">
-      <rect width="568" height="128" rx="17" fill="#101519" stroke="#344039" stroke-width="2"/>
-      <text x="24" y="30" fill="#91E66C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700" letter-spacing="1.3">01 · COST FIRST</text>
-      <text x="24" y="68" fill="#F5F1E8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="760">POOR RELAY</text>
-      <text x="540" y="66" text-anchor="end" fill="#91E66C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="19" font-weight="700">5 PROFILES</text>
-      <path d="M26 99H542" stroke="#29342D" stroke-width="7" stroke-linecap="round"/>
-      <path d="M26 99H236" stroke="#91E66C" stroke-width="4" stroke-linecap="round"/>
-      <circle cx="26" cy="99" r="7" fill="#91E66C"/>
-      <circle cx="236" cy="99" r="7" fill="#91E66C"/>
-      <circle cx="382" cy="99" r="7" fill="#BBC3C9"/>
-      <circle cx="542" cy="99" r="7" fill="#F5B942"/>
-      <text x="26" y="120" fill="#89949C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">LUNA</text>
-      <text x="542" y="120" text-anchor="end" fill="#89949C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">SOL</text>
+      <rect width="608" height="116" rx="16" fill="#101519" stroke="#344039" stroke-width="2"/>
+      <text x="22" y="29" fill="#91E66C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700" letter-spacing="1.2">01 · COST FIRST</text>
+      <text x="22" y="65" fill="#F5F1E8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="27" font-weight="760">POOR RELAY</text>
+      <text x="580" y="63" text-anchor="end" fill="#91E66C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">5 PROFILES</text>
+      <path d="M24 91H580" stroke="#29342D" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="24" cy="91" r="6" fill="#91E66C"/>
+      <circle cx="232" cy="91" r="6" fill="#91E66C"/>
+      <circle cx="400" cy="91" r="6" fill="#BBC3C9"/>
+      <circle cx="580" cy="91" r="6" fill="#F5B942"/>
+      <text x="24" y="110" fill="#89949C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15">LUNA BULK</text>
+      <text x="580" y="110" text-anchor="end" fill="#89949C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15">SOL ON DEMAND</text>
     </g>
 
-    <g id="sol-explore-relay" transform="translate(0 146)">
-      <rect width="568" height="128" rx="17" fill="#101719" stroke="#31534F" stroke-width="2"/>
-      <text x="24" y="30" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700" letter-spacing="1.3">02 · EXPLORE ONLY</text>
-      <text x="24" y="68" fill="#F5F1E8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="760">SOL EXPLORE RELAY</text>
-      <text x="540" y="66" text-anchor="end" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="19" font-weight="700">4 READ-ONLY</text>
-
-      <circle cx="32" cy="101" r="9" fill="#F5B942"/>
-      <circle cx="32" cy="101" r="3" fill="#080B0D"/>
-      <path d="M43 101H88V88H126M88 101H244M88 101V114H362" fill="none" stroke="#6DD6C3" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="126" cy="88" r="6" fill="#6DD6C3"/>
-      <circle cx="244" cy="101" r="6" fill="#6DD6C3"/>
-      <circle cx="362" cy="114" r="6" fill="#6DD6C3"/>
-      <path d="M368 114H438V101H528" fill="none" stroke="#6DD6C3" stroke-width="3"/>
-      <circle cx="540" cy="101" r="7" fill="#F5B942"/>
-      <text x="540" y="123" text-anchor="end" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16" font-weight="700">SOL WRITES</text>
+    <g id="sol-explore-relay" transform="translate(0 130)">
+      <rect width="608" height="116" rx="16" fill="#101719" stroke="#31534F" stroke-width="2"/>
+      <text x="22" y="29" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700" letter-spacing="1.2">02 · EXPLORE ONLY</text>
+      <text x="22" y="65" fill="#F5F1E8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="27" font-weight="760">SOL EXPLORE RELAY</text>
+      <text x="580" y="63" text-anchor="end" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">4 READ-ONLY</text>
+      <circle cx="28" cy="92" r="7" fill="#F5B942"/>
+      <path d="M40 92H112M112 92V80H198M112 92H310M112 92V104H420M426 104H540V92H574" fill="none" stroke="#6DD6C3" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="198" cy="80" r="5" fill="#6DD6C3"/>
+      <circle cx="310" cy="92" r="5" fill="#6DD6C3"/>
+      <circle cx="420" cy="104" r="5" fill="#6DD6C3"/>
+      <circle cx="580" cy="92" r="6" fill="#F5B942"/>
+      <text x="580" y="111" text-anchor="end" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15">PARENT SOL WRITES</text>
     </g>
 
-    <g id="sol-led-relay" transform="translate(0 292)">
-      <rect width="568" height="128" rx="17" fill="#121518" stroke="#4B432F" stroke-width="2"/>
-      <text x="24" y="30" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700" letter-spacing="1.3">03 · CONTROLLED LANES</text>
-      <text x="24" y="68" fill="#F5F1E8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="760">SOL-LED RELAY</text>
-      <text x="540" y="66" text-anchor="end" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="19" font-weight="700">9 PROFILES</text>
-      <circle cx="32" cy="101" r="9" fill="#F5B942"/>
-      <path d="M43 101H82M82 101V84M82 101V118M82 84H150M82 101H290M82 118H430" fill="none" stroke="#F5B942" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="150" cy="84" r="6" fill="#6DD6C3"/>
-      <circle cx="290" cy="101" r="6" fill="#F5B942"/>
-      <circle cx="430" cy="118" r="6" fill="#6DD6C3"/>
-      <text x="168" y="90" fill="#9DA7AE" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">EXPLORE</text>
-      <text x="308" y="107" fill="#9DA7AE" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">EXECUTE</text>
-      <text x="448" y="124" fill="#9DA7AE" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">REVIEW</text>
+    <g id="sol-pair-relay" transform="translate(0 260)">
+      <rect width="608" height="116" rx="16" fill="#15141A" stroke="#51496E" stroke-width="2"/>
+      <text x="22" y="29" fill="#B8A7FF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700" letter-spacing="1.2">03 · FRESH CONTEXT PAIR</text>
+      <text x="22" y="65" fill="#F5F1E8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="27" font-weight="760">SOL PAIR RELAY</text>
+      <text x="580" y="63" text-anchor="end" fill="#B8A7FF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">3 PROFILES</text>
+      <circle cx="28" cy="92" r="6" fill="#6DD6C3"/>
+      <path d="M38 92H126" stroke="#6DD6C3" stroke-width="3"/>
+      <rect x="126" y="78" width="110" height="28" rx="7" fill="#282319" stroke="#66552A"/>
+      <text x="181" y="98" text-anchor="middle" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700">SOL PLAN</text>
+      <path d="M236 92H298" stroke="#F5B942" stroke-width="3"/>
+      <path d="M298 78H374L390 94V106H298Z" fill="#F5F1E8"/>
+      <text x="344" y="100" text-anchor="middle" fill="#26231C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14" font-weight="800">plan.md</text>
+      <path d="M390 92H434" stroke="#F5B942" stroke-width="3"/>
+      <rect x="434" y="78" width="146" height="28" rx="7" fill="#282319" stroke="#66552A"/>
+      <text x="507" y="98" text-anchor="middle" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700">SOL EXEC + ACCEPT</text>
+    </g>
+
+    <g id="sol-led-relay" transform="translate(0 390)">
+      <rect width="608" height="116" rx="16" fill="#121518" stroke="#4B432F" stroke-width="2"/>
+      <text x="22" y="29" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700" letter-spacing="1.2">04 · CONTROLLED LANES</text>
+      <text x="22" y="65" fill="#F5F1E8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="27" font-weight="760">SOL-LED RELAY</text>
+      <text x="580" y="63" text-anchor="end" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">9 PROFILES</text>
+      <circle cx="28" cy="92" r="7" fill="#F5B942"/>
+      <path d="M40 92H84M84 92V79M84 92V105M84 79H172M84 92H326M84 105H484" fill="none" stroke="#F5B942" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="172" cy="79" r="5" fill="#6DD6C3"/>
+      <circle cx="326" cy="92" r="5" fill="#F5B942"/>
+      <circle cx="484" cy="105" r="5" fill="#6DD6C3"/>
+      <text x="188" y="85" fill="#9DA7AE" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15">EXPLORE</text>
+      <text x="342" y="98" fill="#9DA7AE" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15">EXECUTE</text>
+      <text x="500" y="111" fill="#9DA7AE" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15">REVIEW</text>
     </g>
   </g>
 </svg>

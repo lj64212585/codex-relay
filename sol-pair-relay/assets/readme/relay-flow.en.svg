@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Sol Pair Relay flow</title>
+  <desc id="desc">The parent freezes goal and authority, Luna Max optionally explores, the first fresh Sol Max writes only a temporary plan, and the second fresh Sol Max implements, checks, reviews the diff, and performs technical acceptance before evidence returns to the parent.</desc>
+
+  <rect width="1200" height="620" rx="28" fill="#090C0E"/>
+  <rect x="1" y="1" width="1198" height="618" rx="27" fill="none" stroke="#2B343A" stroke-width="2"/>
+
+  <g id="heading" transform="translate(56 52)">
+    <text x="0" y="0" fill="#B8A7FF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700" letter-spacing="2">FRESH CONTEXT HANDOFF / 01</text>
+    <text x="0" y="52" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="42" font-weight="780">Only plan.md crosses the two Sol contexts</text>
+    <text x="0" y="88" fill="#929DA5" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20">Search noise stays out. Planning fixes the route. Execution starts clean.</text>
+  </g>
+
+  <g id="parent-input" transform="translate(56 178)">
+    <rect width="212" height="132" rx="16" fill="#15151B" stroke="#51496E" stroke-width="2"/>
+    <circle cx="32" cy="32" r="10" fill="#B8A7FF"/>
+    <text x="52" y="39" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="21" font-weight="760">MAIN</text>
+    <text x="24" y="78" fill="#D5DADF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="650">Luna / Terra</text>
+    <text x="24" y="105" fill="#9DA7AE" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">GOAL · AUTHORITY</text>
+  </g>
+
+  <path d="M268 244H310" stroke="#6DD6C3" stroke-width="3"/>
+  <circle cx="323" cy="244" r="7" fill="#6DD6C3"/>
+
+  <g id="explorer" transform="translate(336 178)">
+    <rect width="214" height="132" rx="16" fill="#11171A" stroke="#31534F" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="24" y="30" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700">OPTIONAL</text>
+    <text x="24" y="67" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="22" font-weight="760">LUNA MAX</text>
+    <text x="24" y="96" fill="#D0D6D8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20">Bounded explore</text>
+    <text x="24" y="119" fill="#9DA7AE" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">EVIDENCE_READY</text>
+  </g>
+
+  <path d="M550 244H592" stroke="#6DD6C3" stroke-width="3"/>
+  <g id="evidence" transform="translate(604 205)">
+    <path d="M0 0H106L130 24V78H0Z" fill="#142022" stroke="#31534F" stroke-width="2"/>
+    <path d="M106 0V24H130" fill="none" stroke="#6DD6C3" stroke-width="2"/>
+    <text x="65" y="36" text-anchor="middle" fill="#6DD6C3" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16" font-weight="700">COMPACT</text>
+    <text x="65" y="60" text-anchor="middle" fill="#DDE2E2" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">EVIDENCE</text>
+  </g>
+
+  <path d="M734 244H770" stroke="#F5B942" stroke-width="3"/>
+  <g id="planner" transform="translate(782 156)">
+    <rect width="362" height="176" rx="18" fill="#181714" stroke="#66552A" stroke-width="2"/>
+    <rect width="9" height="176" rx="4" fill="#F5B942"/>
+    <text x="30" y="34" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">FRESH SOL MAX · 01</text>
+    <text x="30" y="75" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="25" font-weight="780">PLAN CHAMBER</text>
+    <text x="30" y="108" fill="#D4D9DB" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="19">Scope · interfaces · order · checks</text>
+    <path d="M30 128H332" stroke="#443C28" stroke-width="2"/>
+    <text x="30" y="155" fill="#9DA7AE" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">PLAN ONLY · NO PRODUCT EDITS</text>
+  </g>
+
+  <path d="M963 332V354" stroke="#F5B942" stroke-width="3"/>
+  <g id="plan" transform="translate(886 354)">
+    <path d="M0 0H128L154 26V58H0Z" fill="#F5F1E8"/>
+    <path d="M128 0V26H154" fill="none" stroke="#B18A2D" stroke-width="2"/>
+    <text x="77" y="37" text-anchor="middle" fill="#26231C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="19" font-weight="800">plan.md</text>
+  </g>
+
+  <path d="M963 412V430" stroke="#F5B942" stroke-width="3"/>
+  <g id="executor" transform="translate(590 430)">
+    <rect width="554" height="132" rx="18" fill="#181714" stroke="#66552A" stroke-width="2"/>
+    <rect width="9" height="132" rx="4" fill="#F5B942"/>
+    <text x="30" y="32" fill="#F5B942" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">FRESH SOL MAX · 02</text>
+    <text x="30" y="72" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="25" font-weight="780">EXECUTE + ACCEPT</text>
+    <text x="30" y="103" fill="#D4D9DB" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="19">Edit · checks · artifacts · real diff · matrix</text>
+    <text x="522" y="32" text-anchor="end" fill="#91E66C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700">TECHNICAL GATE</text>
+  </g>
+
+  <path d="M590 496H548" stroke="#91E66C" stroke-width="3"/>
+  <g id="technical-evidence" transform="translate(316 430)">
+    <rect width="220" height="132" rx="16" fill="#111914" stroke="#3E5B35" stroke-width="2"/>
+    <text x="24" y="34" fill="#91E66C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700">RETURN</text>
+    <text x="24" y="70" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="22" font-weight="760">TECH EVIDENCE</text>
+    <text x="24" y="100" fill="#A1ABB2" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">CHECKS · DIFF · GATES</text>
+  </g>
+
+  <path d="M316 496H276" stroke="#B8A7FF" stroke-width="3"/>
+  <g id="parent-output" transform="translate(56 430)">
+    <rect width="208" height="132" rx="16" fill="#15151B" stroke="#51496E" stroke-width="2"/>
+    <text x="24" y="34" fill="#B8A7FF" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" font-weight="700">MAIN RETURNS</text>
+    <text x="24" y="70" fill="#F6F1E7" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="760">REVIEW + DELIVER</text>
+    <text x="24" y="100" fill="#A1ABB2" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">USER GATES STAY HERE</text>
+  </g>
+
+  <text x="1144" y="594" text-anchor="end" fill="#929DA5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17">RAW SEARCH OUT · PLANNER TRANSCRIPT OUT · ONE WRITER</text>
+</svg>
