@@ -37,10 +37,10 @@
 | 调度方式 | 任务实现完美度 | 实现成本 | 估值依据 |
 | --- | ---: | ---: | --- |
 | 单个 Sol 独立完成 | **100%** | **100%** | 基准；没有交接损耗，也没有独立上下文带来的复核增益 |
-| [Poor Relay](./poor-relay/README.md) | ${\color[RGB]{154,103,0}\mathbf{95\%}}$ | ${\color[RGB]{26,127,55}\mathbf{45\%}}$ | Luna 承担探索与常规实现，Terra 和 Sol 只在风险、规划或集成节点介入；成本最低，但细腻实现与全局一致性略让位于预算 |
-| [Sol Explore Relay](./sol-explore-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{110\%}}$ | ${\color[RGB]{26,127,55}\mathbf{90\%}}$ | Luna / Terra 隔离高噪声探索，父级 Sol 保留完整实现权；减少上下文污染，以少量派发和复核开销换取质量提升 |
-| [Sol Pair Relay](./sol-pair-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{120\%}}$ | ${\color[RGB]{207,34,46}\mathbf{180\%}}$ | 两个全新的 Sol Max 分别规划和实现验收，质量上限最高；重复理解、计划交接与双 Sol 推理也使成本最高 |
-| [Sol-led Relay](./sol-led-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{115\%}}$ | ${\color[RGB]{26,127,55}\mathbf{85\%}}$ | 父级 Sol 保留决策与集成，Luna 执行有界切片，Terra 独立复核；在多角色协调开销下仍兼顾较高质量与较低成本 |
+| [Poor Relay](./poor-relay/README.md) | ${\color[RGB]{154,103,0}\mathbf{95\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{45\\%}}$ | Luna 承担探索与常规实现，Terra 和 Sol 只在风险、规划或集成节点介入；成本最低，但细腻实现与全局一致性略让位于预算 |
+| [Sol Explore Relay](./sol-explore-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{110\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{90\\%}}$ | Luna / Terra 隔离高噪声探索，父级 Sol 保留完整实现权；减少上下文污染，以少量派发和复核开销换取质量提升 |
+| [Sol Pair Relay](./sol-pair-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{120\\%}}$ | ${\color[RGB]{207,34,46}\mathbf{180\\%}}$ | 两个全新的 Sol Max 分别规划和实现验收，质量上限最高；重复理解、计划交接与双 Sol 推理也使成本最高 |
+| [Sol-led Relay](./sol-led-relay/README.md) | ${\color[RGB]{26,127,55}\mathbf{115\\%}}$ | ${\color[RGB]{26,127,55}\mathbf{85\\%}}$ | 父级 Sol 保留决策与集成，Luna 执行有界切片，Terra 独立复核；在多角色协调开销下仍兼顾较高质量与较低成本 |
 
 > 这些数值用于比较调度取向，不是实测 benchmark。一步式小任务通常无法摊薄派发成本；任务越复杂、探索噪声越大、切片边界越清晰，Relay 的相对收益越接近表中估值。
 >
