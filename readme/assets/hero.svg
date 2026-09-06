@@ -1,1 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="490" viewBox="0 0 1080 490" role="img"><title>Codex Relay</title><desc>Three responsibility-based routing modes</desc><rect width="1080" height="490" rx="20" fill="#121b25"/><g font-family="Segoe UI, Arial, sans-serif"><text x="40" y="68" fill="#f5f7fa" font-size="38" font-weight="700">CODEX RELAY</text><text x="40" y="108" fill="#c1ccd7" font-size="21">Responsibilities stay stable. Models are configuration.</text><g transform="translate(40 145)"><rect width="1000" height="88" rx="14" fill="#202c39"/><text x="24" y="34" fill="#8ee6cc" font-size="23">EXPLORE RELAY</text><text x="24" y="63" fill="#c1ccd7" font-size="17">Parent implementation · Read-only evidence</text><text x="970" y="36" text-anchor="end" fill="#f5d181" font-size="16">DEFAULT</text></g><g transform="translate(40 250)"><rect width="1000" height="88" rx="14" fill="#202c39"/><text x="24" y="34" fill="#8ee6cc" font-size="23">IMPLEMENTATION RELAY</text><text x="24" y="63" fill="#c1ccd7" font-size="17">Settled slices · Independent risk review</text><text x="970" y="36" text-anchor="end" fill="#f5d181" font-size="16">ON DEMAND</text></g><g transform="translate(40 355)"><rect width="1000" height="88" rx="14" fill="#202c39"/><text x="24" y="34" fill="#8ee6cc" font-size="23">BUDGET RELAY</text><text x="24" y="63" fill="#c1ccd7" font-size="17">Settled behavior · Early uncertainty escalation</text><text x="970" y="36" text-anchor="end" fill="#f5d181" font-size="16">BUDGET</text></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">Codex Relay — responsibility routes</title>
+  <desc id="desc">三种职责路径：Explore 委派只读探索；Implementation 委派确定切片与审核；Budget 将规划、执行与集成分开。</desc>
+  <rect width="1200" height="650" rx="12" fill="#f4f3ee"/>
+  <g font-family="Segoe UI, Microsoft YaHei, sans-serif">
+    <g id="identity">
+      <path d="M40 48 H61 Q76 48 76 63 V83 M40 83 H55 Q61 83 61 77 V63 H91" stroke="#202b2b" stroke-width="4" fill="none"/>
+      <circle cx="91" cy="63" r="5" fill="#167764"/>
+      <text x="111" y="82" fill="#202b2b" font-size="46" font-weight="700" letter-spacing="-1.5">Codex Relay</text>
+      <text x="1154" y="77" text-anchor="end" fill="#56615e" font-size="24">三种调度，同一个清晰的责任归属。</text>
+      <path d="M40 116 H1160" stroke="#ced3cc"/>
+    </g>
+    <g id="route-explore" transform="translate(0 150)">
+      <text x="40" y="23" fill="#167764" font-family="Consolas, monospace" font-size="22">01</text>
+      <text x="88" y="26" fill="#202b2b" font-size="32" font-weight="650">Explore</text>
+      <text x="88" y="61" fill="#167764" font-size="18">默认 · 证据委派</text>
+      <path d="M472 36 H1090" stroke="#a9b4ad" stroke-width="2" fill="none"/>
+      <text x="475" y="12" text-anchor="middle" fill="#35433e" font-size="23">理解</text>
+      <circle cx="475" cy="36" r="5" fill="#f4f3ee" stroke="#167764" stroke-width="2"/>
+      <text x="785" y="12" text-anchor="middle" fill="#35433e" font-size="23">实施</text>
+      <circle cx="785" cy="36" r="5" fill="#f4f3ee" stroke="#167764" stroke-width="2"/>
+      <text x="1090" y="12" text-anchor="middle" fill="#35433e" font-size="23">验收</text>
+      <circle cx="1090" cy="36" r="5" fill="#f4f3ee" stroke="#167764" stroke-width="2"/>
+      <path d="M510 36 V76 Q510 88 522 88 H1028 Q1040 88 1040 76 V42" stroke="#167764" stroke-width="2.5" fill="none"/>
+      <path d="M1035 49 L1040 41 L1045 49" stroke="#167764" stroke-width="2" fill="none"/>
+
+      <text x="776" y="116" text-anchor="middle" fill="#167764" font-size="22">只读探索 → 返回证据</text>
+      <path d="M40 128 H1160" stroke="#dce0d8"/>
+    </g>
+    <g id="route-implementation" transform="translate(0 303)">
+      <text x="40" y="23" fill="#365b99" font-family="Consolas, monospace" font-size="22">02</text>
+      <text x="88" y="26" fill="#202b2b" font-size="32" font-weight="650">Implementation</text>
+      <text x="88" y="61" fill="#365b99" font-size="18">按需 · 确定切片</text>
+      <path d="M472 36 H1090" stroke="#a9b4ad" stroke-width="2" fill="none"/>
+      <text x="475" y="12" text-anchor="middle" fill="#35433e" font-size="23">划定边界</text>
+      <circle cx="475" cy="36" r="5" fill="#f4f3ee" stroke="#365b99" stroke-width="2"/>
+      <text x="785" y="12" text-anchor="middle" fill="#35433e" font-size="23">核心实现</text>
+      <circle cx="785" cy="36" r="5" fill="#f4f3ee" stroke="#365b99" stroke-width="2"/>
+      <text x="1090" y="12" text-anchor="middle" fill="#35433e" font-size="23">验收</text>
+      <circle cx="1090" cy="36" r="5" fill="#f4f3ee" stroke="#365b99" stroke-width="2"/>
+      <path d="M510 36 V76 Q510 88 522 88 H1028 Q1040 88 1040 76 V42" stroke="#365b99" stroke-width="2.5" fill="none"/>
+      <path d="M1035 49 L1040 41 L1045 49" stroke="#365b99" stroke-width="2" fill="none"/>
+
+      <text x="776" y="116" text-anchor="middle" fill="#365b99" font-size="22">切片实施 + 独立审核</text>
+      <path d="M40 128 H1160" stroke="#dce0d8"/>
+    </g>
+    <g id="route-budget" transform="translate(0 456)">
+      <text x="40" y="23" fill="#946122" font-family="Consolas, monospace" font-size="22">03</text>
+      <text x="88" y="26" fill="#202b2b" font-size="32" font-weight="650">Budget</text>
+      <text x="88" y="61" fill="#946122" font-size="18">预算优先 · 分段执行</text>
+      <path d="M472 36 H1090" stroke="#a9b4ad" stroke-width="2" fill="none"/>
+      <text x="475" y="12" text-anchor="middle" fill="#35433e" font-size="23">规划</text>
+      <circle cx="475" cy="36" r="5" fill="#f4f3ee" stroke="#946122" stroke-width="2"/>
+      <text x="785" y="12" text-anchor="middle" fill="#35433e" font-size="23">执行与审核</text>
+      <circle cx="785" cy="36" r="5" fill="#f4f3ee" stroke="#946122" stroke-width="2"/>
+      <text x="1090" y="12" text-anchor="middle" fill="#35433e" font-size="23">集成</text>
+      <circle cx="1090" cy="36" r="5" fill="#f4f3ee" stroke="#946122" stroke-width="2"/>
+      <path d="M490 36 H755 M807 36 H1070" stroke="#946122" stroke-width="3"/>
+      <path d="M747 31 L755 36 L747 41 M1062 31 L1070 36 L1062 41" stroke="#946122" stroke-width="2" fill="none"/>
+      <text x="785" y="92" text-anchor="middle" fill="#946122" font-size="22">明确边界 · 不确定性提前转交</text>
+    </g>
+    <path d="M40 594 H1160" stroke="#ced3cc"/>
+    <text x="40" y="627" fill="#56615e" font-size="20">职责保持稳定 / 模型由配置选择</text>
+    <text x="1160" y="627" text-anchor="end" fill="#56615e" font-family="Consolas, monospace" font-size="18">SKILLS + AGENTS</text>
+  </g>
+</svg>
