@@ -947,46 +947,6 @@ kbd,
   font-size: 0.84rem;
 }
 
-.relay-metrics {
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 3px;
-  color: var(--text-faint);
-  font-size: 0.68rem;
-  line-height: 1.25;
-  white-space: nowrap;
-}
-
-.relay-metric {
-  min-width: 0;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 4px;
-}
-
-.relay-metric + .relay-metric::before {
-  width: 1px;
-  height: 10px;
-  margin-right: 8px;
-  background: var(--border-strong);
-  content: "";
-}
-
-.relay-metric-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.relay-metric strong {
-  flex: 0 0 auto;
-  color: var(--text);
-  font-size: 0.72rem;
-  font-variant-numeric: tabular-nums;
-  font-weight: 750;
-}
-
 .relay-check {
   display: grid;
   width: 18px;
@@ -1011,14 +971,11 @@ kbd,
 }
 
 .relay-description {
-  display: -webkit-box;
-  overflow: hidden;
+  display: block;
   margin: 4px 0 0;
   color: var(--text-soft);
   font-size: 0.75rem;
   line-height: 1.36;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
 }
 
 .relay-meta {
@@ -1032,10 +989,8 @@ kbd,
 }
 
 .relay-badge {
-  overflow: hidden;
   max-width: 150px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .relay-agent-count {
@@ -2225,20 +2180,6 @@ a:focus-visible {
     grid-template-columns: 90px minmax(0, 1fr);
   }
 
-  .relay-metrics {
-    flex-wrap: nowrap;
-    gap: 2px;
-    white-space: nowrap;
-  }
-
-  .relay-metric {
-    white-space: nowrap;
-  }
-
-  .relay-metric + .relay-metric::before {
-    margin-right: 2px;
-  }
-
   .readme-dialog {
     width: 100vw;
     height: 100dvh;
@@ -2248,13 +2189,7 @@ a:focus-visible {
   }
 }
 
-@media (max-width: 340px) {
-  .relay-metrics {
-    flex-wrap: wrap;
-    row-gap: 2px;
-    white-space: normal;
-  }
-}
+
 
 @media (prefers-reduced-motion: reduce) {
   *,

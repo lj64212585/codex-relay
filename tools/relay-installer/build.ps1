@@ -7,7 +7,9 @@ param(
     [string]$OutputDirectory,
     [switch]$RequireWin64,
     [string]$VersionFile,
-    [switch]$VerifyPackage
+    [switch]$VerifyPackage,
+    [switch]$VersionedOutput,
+    [switch]$WriteChecksums
 )
 
 $ErrorActionPreference = "Stop"
@@ -70,6 +72,10 @@ foreach ($component in @($versionMajor, $versionMinor, $versionPatch, $versionBu
 
 $fileVersion = "$versionMajor.$versionMinor.$versionPatch.$versionBuild"
 $artifactBaseName = "relay-installer-v$packageVersion"
+
+if ($WriteChecksums -and $Mode -ne "onefile") {
+    throw "-WriteChecksums requires -Mode onefile so the checksum covers the complete portable package."
+}
 
 if ([string]::IsNullOrWhiteSpace($PythonExecutable)) {
     if (-not [string]::IsNullOrWhiteSpace($env:RELAY_INSTALLER_PYTHON)) {
@@ -140,6 +146,11 @@ $distDirectory = if ([string]::IsNullOrWhiteSpace($OutputDirectory)) {
 } else {
     [IO.Path]::GetFullPath((Join-Path $repositoryRoot $OutputDirectory))
 }
+if ($VersionedOutput) {
+    # Use the validated version, never raw version-file text as a path component.
+    $distDirectory = Join-Path $distDirectory $packageVersion
+}
+$checksumPath = Join-Path $distDirectory "SHA256SUMS.txt"
 
 if (Test-Path -LiteralPath $distDirectory -PathType Leaf) {
     throw "Output directory points to a file: $distDirectory"
@@ -260,6 +271,11 @@ foreach ($argument in $dataArguments) {
 }
 $pyInstallerArguments.Add((Join-Path $installerRoot "relay_installer_desktop.py"))
 
+# A failed rebuild must not leave a checksum for an executable it replaced.
+if ($WriteChecksums -and (Test-Path -LiteralPath $checksumPath -PathType Leaf)) {
+    Remove-Item -LiteralPath $checksumPath -Force
+}
+
 & $PythonExecutable @pyInstallerArguments
 if ($LASTEXITCODE -ne 0) {
     throw "PyInstaller build failed with exit code $LASTEXITCODE."
@@ -328,6 +344,27 @@ if ($VerifyPackage) {
         )
     }
     Write-Host "[OK] Packaged desktop executable, content, and version metadata validated."
+}
+
+if ($WriteChecksums) {
+    $hashAlgorithm = [Security.Cryptography.SHA256]::Create()
+    $artifactStream = $null
+    try {
+        $artifactStream = [IO.File]::OpenRead($artifactPath)
+        $artifactHash = [BitConverter]::ToString(
+            $hashAlgorithm.ComputeHash($artifactStream)
+        ).Replace("-", "").ToLowerInvariant()
+    } finally {
+        if ($null -ne $artifactStream) { $artifactStream.Dispose() }
+        $hashAlgorithm.Dispose()
+    }
+    $checksumLine = "$artifactHash  $([IO.Path]::GetFileName($artifactPath))"
+    [IO.File]::WriteAllText(
+        $checksumPath,
+        $checksumLine + "`n",
+        [Text.UTF8Encoding]::new($false)
+    )
+    Write-Host "[OK] SHA-256 checksum file created: $checksumPath"
 }
 
 Write-Host "[OK] Relay Installer package created: $artifactPath"

@@ -36,15 +36,11 @@ const translations = {
     "destination.projectLabel": "项目安装目录",
     "destination.placeholder": "例如 D:\\Projects\\my-project",
     "destination.browse": "浏览目录",
-    "destination.help": "写入 .agents/skills 与 .codex/agents。",
+    "destination.help": "写入 .codex/skills 与 .codex/agents。",
     "destination.required": "请选择或输入一个项目安装目录。",
     "relay.title": "Relay 类型",
     "relay.help": "同一安装范围建议只保留一种主调度策略。",
     "relay.agentCount": "{count} 个 Agent",
-    "relay.taskPerfection": "任务实现完美度",
-    "relay.implementationCost": "实现成本",
-    "relay.metricsHint": "相对单个 Sol 独立完成（100%）的估值；并非实测 benchmark。",
-    "relay.metricsAria": "任务实现完美度 {quality}%，实现成本 {cost}%。相对单个 Sol 独立完成（100%）的估值。",
     "relay.details": "详情",
     "relay.detailsAria": "查看 {name} 的 README",
     "readme.eyebrow": "Relay 文档",
@@ -177,15 +173,11 @@ const translations = {
     "destination.projectLabel": "Project install directory",
     "destination.placeholder": "e.g. D:\\Projects\\my-project",
     "destination.browse": "Browse",
-    "destination.help": "Writes to .agents/skills and .codex/agents.",
+    "destination.help": "Writes to .codex/skills and .codex/agents.",
     "destination.required": "Select or enter a project install directory.",
     "relay.title": "Relay type",
     "relay.help": "Keep one primary orchestration strategy in each install scope.",
     "relay.agentCount": "{count} Agents",
-    "relay.taskPerfection": "Task perfection",
-    "relay.implementationCost": "Implementation cost",
-    "relay.metricsHint": "Estimated relative to one Sol working independently (100%); not a measured benchmark.",
-    "relay.metricsAria": "Task perfection {quality}%, implementation cost {cost}%. Estimated relative to one Sol working independently (100%).",
     "relay.details": "Details",
     "relay.detailsAria": "View the {name} README",
     "readme.eyebrow": "Relay documentation",
@@ -402,7 +394,6 @@ function localizedRelay(relay) {
     name: localized ? localized.name : relay.name,
     badge: localized ? localized.badge : relay.badge,
     description: localized ? localized.description : relay.description,
-    metrics: relay.metrics,
     agentCount: relay.agentCount,
     targets: relay.targets,
     readmeLocales: Array.isArray(relay.readmeLocales)
@@ -797,52 +788,13 @@ function createRelayOption(relay, checked) {
     '<svg viewBox="0 0 24 24"><path d="m6 12 4 4 8-8"></path></svg>';
   top.append(heading, check);
 
-  const metrics = document.createElement("span");
-  metrics.className = "relay-metrics";
-  metrics.setAttribute("role", "group");
-  metrics.title = t("relay.metricsHint");
-  metrics.setAttribute(
-    "aria-label",
-    t("relay.metricsAria", {
-      quality: localized.metrics.taskPerfectionPercent,
-      cost: localized.metrics.implementationCostPercent
-    })
-  );
-
-  [
-    {
-      kind: "quality",
-      label: t("relay.taskPerfection"),
-      value: localized.metrics.taskPerfectionPercent
-    },
-    {
-      kind: "cost",
-      label: t("relay.implementationCost"),
-      value: localized.metrics.implementationCostPercent
-    }
-  ].forEach(function (metricDefinition) {
-    const metric = document.createElement("span");
-    metric.className = "relay-metric";
-    metric.dataset.kind = metricDefinition.kind;
-
-    const metricLabel = document.createElement("span");
-    metricLabel.className = "relay-metric-label";
-    metricLabel.textContent = metricDefinition.label;
-
-    const metricValue = document.createElement("strong");
-    metricValue.textContent = metricDefinition.value + "%";
-
-    metric.append(metricLabel, metricValue);
-    metrics.appendChild(metric);
-  });
-
   const description = document.createElement("span");
   description.className = "relay-description";
   description.textContent = localized.description;
 
   const summary = document.createElement("span");
   summary.className = "relay-option-summary";
-  summary.append(top, metrics, description);
+  summary.append(top, description);
 
   const meta = document.createElement("span");
   meta.className = "relay-meta";

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Explore Relay"
+  short_description: "Delegate exploration while the parent keeps every implementation"
+  default_prompt: "Use $explore-relay to delegate only bounded read-only exploration while the parent implements, verifies, and delivers the task."
+
+policy:
+  allow_implicit_invocation: true

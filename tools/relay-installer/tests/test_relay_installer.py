@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import os
 import sys
 import tempfile
@@ -22,6 +23,19 @@ from relay_installer import (
 
 
 class RelayInstallerServiceTests(unittest.TestCase):
+    def test_repository_catalog_has_implementation_instead_of_pair(self) -> None:
+        installer_root = Path(__file__).resolve().parents[1]
+        config = load_installer_config(installer_root / "relay-installer.config.json")
+        self.assertEqual(
+            ["explore-relay", "implementation-relay", "budget-relay"],
+            [relay.relay_id for relay in config.relays],
+        )
+        implementation = config.relay_by_id("implementation-relay")
+        self.assertEqual(9, len(implementation.agent_files))
+        service = RelayInstallerService(config)
+        self.assertEqual(3, len(service.bootstrap()["relays"]))
+        self.assertFalse((config.source_root / "plan-execute-relay").exists())
+
     def setUp(self) -> None:
         self.temp_directory = tempfile.TemporaryDirectory()
         self.root = Path(self.temp_directory.name)
@@ -60,14 +74,10 @@ class RelayInstallerServiceTests(unittest.TestCase):
             "name": relay_id.title(),
             "badge": f"{len(agent_files)} roles",
             "description": f"{relay_id} test relay",
-            "metrics": {
-                "taskPerfectionPercent": 105,
-                "implementationCostPercent": 75,
-            },
             "sourcePath": relay_id,
             "skill": {
                 "source": "skill",
-                "target": f".agents/skills/{relay_id}",
+                "target": f".codex/skills/{relay_id}",
             },
             "agents": {
                 "source": "agents",
@@ -76,7 +86,7 @@ class RelayInstallerServiceTests(unittest.TestCase):
             },
         }
 
-    def _service(self, relay_entries: list[dict[str, object]]) -> RelayInstallerService:
+    def _service(self, relay_entries: list[dict[str, object]], retired: list[dict[str, object]] | None = None) -> RelayInstallerService:
         config_path = self.root / "installer.json"
         config_path.write_text(
             json.dumps(
@@ -84,6 +94,7 @@ class RelayInstallerServiceTests(unittest.TestCase):
                     "schemaVersion": 1,
                     "sourceRoot": "packages",
                     "relays": relay_entries,
+                    "retiredRelays": retired or [],
                 },
                 ensure_ascii=False,
                 indent=2,
@@ -110,11 +121,110 @@ class RelayInstallerServiceTests(unittest.TestCase):
 
         self.assertEqual(str(self.home_root), result["targetRoot"])
         self.assertTrue(
-            (self.home_root / ".agents/skills/alpha-relay/SKILL.md").is_file()
+            (self.home_root / ".codex/skills/alpha-relay/SKILL.md").is_file()
         )
         self.assertTrue(
             (self.home_root / ".codex/agents/alpha.toml").is_file()
         )
+
+    def _legacy_install(self) -> dict[str, object]:
+        files = {
+            ".agents/skills/legacy-relay/SKILL.md": "---\nname: legacy-relay\n---\nOld rules\n",
+            ".codex/agents/legacy.toml": 'name = "legacy"\n',
+        }
+        for relative, content in files.items():
+            path = self.project_root / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(content.replace("\n", "\r\n").encode())
+        return {
+            "id": "legacy-relay", "name": "Legacy Relay",
+            "skillTarget": ".agents/skills/legacy-relay",
+            "files": {p: hashlib.sha256(s.encode()).hexdigest() for p, s in files.items()},
+        }
+
+    def test_legacy_switch_requires_confirmation_and_backs_up(self) -> None:
+        legacy = self._legacy_install()
+        alpha = self._create_relay("alpha-relay", ["alpha.toml"], "alpha")
+        service = self._service([alpha], [legacy])
+        args = dict(scope="project", project_path=str(self.project_root), relay_id="alpha-relay")
+        inspection = service.inspect(**args)
+        self.assertEqual("retired", inspection["conflicts"][0]["status"])
+        self.assertTrue(inspection["canInstall"])
+        with self.assertRaises(ConflictError):
+            service.install(**args, remove_conflicts=False)
+        result = service.install(**args, remove_conflicts=True)
+        self.assertFalse((self.project_root / legacy["skillTarget"]).exists())
+        self.assertFalse((self.project_root / ".codex/agents/legacy.toml").exists())
+        self.assertTrue((Path(result["backupPath"]) / "manifest.json").is_file())
+        self.assertEqual("legacy-relay", result["removedRelays"][0]["id"])
+
+    def test_legacy_custom_file_blocks_switch_and_removal(self) -> None:
+        legacy = self._legacy_install()
+        extra = self.project_root / legacy["skillTarget"] / "custom.md"
+        extra.write_text("user notes", encoding="utf-8")
+        alpha = self._create_relay("alpha-relay", ["alpha.toml"], "alpha")
+        service = self._service([alpha], [legacy])
+        args = dict(scope="project", project_path=str(self.project_root), relay_id="alpha-relay")
+        self.assertFalse(service.inspect(**args)["canInstall"])
+        with self.assertRaises(UnsafeCollisionError):
+            service.install(**args, remove_conflicts=True)
+        with self.assertRaises(UnsafeCollisionError):
+            service.inspect_removal(scope="project", project_path=str(self.project_root))
+        self.assertEqual("user notes", extra.read_text(encoding="utf-8"))
+
+    def test_legacy_modified_agent_is_not_overwritten(self) -> None:
+        legacy = self._legacy_install()
+        target = self.project_root / ".codex/agents/legacy.toml"
+        target.write_text("custom model", encoding="utf-8")
+        alpha = self._create_relay("alpha-relay", ["legacy.toml"], "alpha")
+        service = self._service([alpha], [legacy])
+        with self.assertRaises(UnsafeCollisionError):
+            service.install(scope="project", project_path=str(self.project_root), relay_id="alpha-relay", remove_conflicts=True)
+        self.assertEqual("custom model", target.read_text(encoding="utf-8"))
+
+    def test_legacy_switch_failure_restores_old_files(self) -> None:
+        legacy = self._legacy_install()
+        before = {p: (self.project_root / p).read_bytes() for p in legacy["files"]}
+        alpha = self._create_relay("alpha-relay", ["alpha.toml"], "alpha")
+        service = self._service([alpha], [legacy])
+        with patch.object(service, "_verify_installed", side_effect=RuntimeError("verify failed")):
+            with self.assertRaises(RuntimeError):
+                service.install(scope="project", project_path=str(self.project_root), relay_id="alpha-relay", remove_conflicts=True)
+        for path, content in before.items():
+            self.assertEqual(content, (self.project_root / path).read_bytes())
+        self.assertFalse((self.project_root / ".codex/skills/alpha-relay").exists())
+
+    def test_legacy_paths_cannot_escape_install_surface(self) -> None:
+        legacy = self._legacy_install()
+        legacy["files"] = {"../outside.txt": "a" * 64}
+        alpha = self._create_relay("alpha-relay", ["alpha.toml"], "alpha")
+        with self.assertRaises(ConfigError):
+            self._service([alpha], [legacy])
+
+    def test_same_name_old_skill_path_migrates_once_and_preserves_other_skills(self) -> None:
+        alpha = self._create_relay("alpha-relay", ["alpha.toml"], "alpha")
+        old = self.project_root / ".agents/skills/alpha-relay"
+        old.mkdir(parents=True)
+        content = (self.source_root / "alpha-relay/skill/SKILL.md").read_bytes()
+        (old / "SKILL.md").write_bytes(content)
+        custom = self.project_root / ".agents/skills/custom/SKILL.md"
+        custom.parent.mkdir(parents=True)
+        custom.write_text("other AI skill", encoding="utf-8")
+        legacy = {
+            "id": "alpha-relay-agents-path", "name": "Alpha old path",
+            "skillTarget": ".agents/skills/alpha-relay",
+            "files": {".agents/skills/alpha-relay/SKILL.md": hashlib.sha256(content.replace(b"\r\n", b"\n")).hexdigest()},
+        }
+        service = self._service([alpha], [legacy])
+        args = dict(scope="project", project_path=str(self.project_root), relay_id="alpha-relay")
+        with self.assertRaises(ConflictError):
+            service.install(**args, remove_conflicts=False)
+        result = service.install(**args, remove_conflicts=True)
+        self.assertFalse(old.exists())
+        self.assertEqual(content, (self.project_root / ".codex/skills/alpha-relay/SKILL.md").read_bytes())
+        self.assertEqual(content, (Path(result["backupPath"]) / ".agents/skills/alpha-relay/SKILL.md").read_bytes())
+        self.assertEqual("other AI skill", custom.read_text(encoding="utf-8"))
+        self.assertEqual([], service.inspect(**args)["conflicts"])
 
     def test_exposes_optional_relay_translations_in_bootstrap(self) -> None:
         alpha = self._create_relay("alpha-relay", ["alpha.toml"], "alpha")
@@ -134,19 +244,11 @@ class RelayInstallerServiceTests(unittest.TestCase):
             public_relay["translations"]["en"]["description"],
         )
 
-    def test_exposes_relay_metrics_in_bootstrap(self) -> None:
+    def test_bootstrap_needs_no_estimated_metrics(self) -> None:
         alpha = self._create_relay("alpha-relay", ["alpha.toml"], "alpha")
-        service = self._service([alpha])
-
-        public_relay = service.bootstrap()["relays"][0]
-
-        self.assertEqual(
-            {
-                "taskPerfectionPercent": 105,
-                "implementationCostPercent": 75,
-            },
-            public_relay["metrics"],
-        )
+        public_relay = self._service([alpha]).bootstrap()["relays"][0]
+        self.assertNotIn("metrics", public_relay)
+        self.assertEqual("alpha-relay test relay", public_relay["description"])
 
     def test_exposes_application_version_in_bootstrap(self) -> None:
         alpha = self._create_relay("alpha-relay", ["alpha.toml"], "alpha")
@@ -227,13 +329,6 @@ class RelayInstallerServiceTests(unittest.TestCase):
             index_html,
         )
 
-    def test_rejects_invalid_relay_metric(self) -> None:
-        alpha = self._create_relay("alpha-relay", ["alpha.toml"], "alpha")
-        alpha["metrics"]["taskPerfectionPercent"] = -1
-
-        with self.assertRaises(ConfigError):
-            self._service([alpha])
-
     def test_rejects_incomplete_relay_translation(self) -> None:
         alpha = self._create_relay("alpha-relay", ["alpha.toml"], "alpha")
         alpha["translations"] = {
@@ -303,7 +398,7 @@ class RelayInstallerServiceTests(unittest.TestCase):
 
         self.assertTrue(result["ok"])
         self.assertTrue(
-            (self.project_root / ".agents/skills/alpha-relay/SKILL.md").is_file()
+            (self.project_root / ".codex/skills/alpha-relay/SKILL.md").is_file()
         )
         self.assertEqual(
             'name = "alpha"\n',
@@ -322,7 +417,7 @@ class RelayInstallerServiceTests(unittest.TestCase):
             relay_id="alpha-relay",
             remove_conflicts=False,
         )
-        custom_skill = self.project_root / ".agents/skills/custom/SKILL.md"
+        custom_skill = self.project_root / ".codex/skills/custom/SKILL.md"
         custom_skill.parent.mkdir(parents=True)
         custom_skill.write_text("custom skill\n", encoding="utf-8")
         custom_agent = self.project_root / ".codex/agents/custom.toml"
@@ -345,7 +440,7 @@ class RelayInstallerServiceTests(unittest.TestCase):
         )
 
         self.assertFalse(
-            (self.project_root / ".agents/skills/alpha-relay").exists()
+            (self.project_root / ".codex/skills/alpha-relay").exists()
         )
         self.assertFalse(
             (self.project_root / ".codex/agents/alpha.toml").exists()
@@ -362,7 +457,7 @@ class RelayInstallerServiceTests(unittest.TestCase):
         self.assertEqual("remove", manifest["operation"])
         self.assertEqual(["alpha-relay"], manifest["removedRelays"])
         self.assertTrue(
-            (backup_root / ".agents/skills/alpha-relay/SKILL.md").is_file()
+            (backup_root / ".codex/skills/alpha-relay/SKILL.md").is_file()
         )
 
     def test_remove_relays_is_a_no_op_when_no_known_relay_exists(self) -> None:
@@ -417,10 +512,10 @@ class RelayInstallerServiceTests(unittest.TestCase):
             remove_conflicts=True,
         )
         self.assertFalse(
-            (self.project_root / ".agents/skills/alpha-relay").exists()
+            (self.project_root / ".codex/skills/alpha-relay").exists()
         )
         self.assertTrue(
-            (self.project_root / ".agents/skills/beta-relay/SKILL.md").is_file()
+            (self.project_root / ".codex/skills/beta-relay/SKILL.md").is_file()
         )
         self.assertEqual(
             'name = "beta"\n',

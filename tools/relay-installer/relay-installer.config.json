@@ -3,101 +3,57 @@
   "sourceRoot": "../../relay",
   "relays": [
     {
-      "id": "poor-relay",
-      "name": "Poor Relay",
-      "badge": "低成本 · 五角色",
-      "description": "用规划、探索、执行、审查与集成五个角色处理多步骤任务。",
-      "metrics": {
-        "taskPerfectionPercent": 95,
-        "implementationCostPercent": 45
-      },
+      "id": "explore-relay",
+      "name": "Explore Relay",
+      "badge": "推荐默认 · 只读探索",
+      "description": "父会话持续负责关键理解、实施和验收；子角色仅返回有范围和版本的证据。",
       "translations": {
         "en": {
-          "name": "Poor Relay",
-          "badge": "Budget · Five roles",
-          "description": "Plan, explore, execute, review, and integrate multi-step work with five focused roles."
+          "name": "Explore Relay",
+          "badge": "Recommended · Read-only evidence",
+          "description": "The parent owns critical understanding, implementation, and acceptance; children return scoped, versioned evidence."
         }
       },
-      "sourcePath": "poor-relay",
+      "sourcePath": "explore-relay",
       "readmes": {
         "zh-CN": "README.md",
         "en": "README.en.md"
       },
       "skill": {
-        "source": "skills/poor-relay",
-        "target": ".agents/skills/poor-relay"
+        "source": "skills/explore-relay",
+        "target": ".codex/skills/explore-relay"
       },
       "agents": {
         "source": "agents",
         "target": ".codex/agents",
         "files": [
-          "tm_planner.toml",
-          "tm_explorer.toml",
-          "tm_executor.toml",
-          "tm_reviewer.toml",
-          "tm_integrator.toml"
+          "explore_code.toml",
+          "explore_docs.toml",
+          "explore_runtime.toml",
+          "explore_runtime_deep.toml"
         ]
       }
     },
     {
-      "id": "sol-pair-relay",
-      "name": "Sol Pair Relay",
-      "badge": "双 Sol · 三角色",
-      "description": "由临时规划与独立执行接力，保留 Explorer 作为只读证据通道。",
-      "metrics": {
-        "taskPerfectionPercent": 120,
-        "implementationCostPercent": 180
-      },
+      "id": "implementation-relay",
+      "name": "Implementation Relay",
+      "badge": "按需扩展 · 有界实施",
+      "description": "父会话保留核心实现；只委派行为已确定的切片，并按指定风险独立审核。",
       "translations": {
         "en": {
-          "name": "Sol Pair Relay",
-          "badge": "Dual Sol · Three roles",
-          "description": "Hand work from a temporary planner to an independent executor, with Explorer as a read-only evidence lane."
+          "name": "Implementation Relay",
+          "badge": "On demand · Bounded implementation",
+          "description": "The parent keeps core implementation; delegate settled slices and review specific risks independently."
         }
       },
-      "sourcePath": "sol-pair-relay",
+      "sourcePath": "implementation-relay",
       "readmes": {
         "zh-CN": "README.md",
         "en": "README.en.md"
       },
       "skill": {
-        "source": "skills/sol-pair-relay",
-        "target": ".agents/skills/sol-pair-relay"
-      },
-      "agents": {
-        "source": "agents",
-        "target": ".codex/agents",
-        "files": [
-          "tm_explorer.toml",
-          "tm_planner.toml",
-          "tm_executor.toml"
-        ]
-      }
-    },
-    {
-      "id": "sol-led-relay",
-      "name": "Sol-led Relay",
-      "badge": "完整编排 · 九角色",
-      "description": "覆盖代码、文档、运行时、执行与验证的完整父级编排方案。",
-      "metrics": {
-        "taskPerfectionPercent": 115,
-        "implementationCostPercent": 85
-      },
-      "translations": {
-        "en": {
-          "name": "Sol-led Relay",
-          "badge": "Full orchestration · Nine roles",
-          "description": "A complete parent-led system for code, docs, runtime evidence, execution, and verification."
-        }
-      },
-      "sourcePath": "sol-led-relay",
-      "readmes": {
-        "zh-CN": "README.md",
-        "en": "README.en.md"
-      },
-      "skill": {
-        "source": "skills/sol-led-relay",
-        "target": ".agents/skills/sol-led-relay"
+        "source": "skills/implementation-relay",
+        "target": ".codex/skills/implementation-relay"
       },
       "agents": {
         "source": "agents",
@@ -116,39 +72,160 @@
       }
     },
     {
-      "id": "sol-explore-relay",
-      "name": "Sol Explore Relay",
-      "badge": "只读探索 · 四角色",
-      "description": "只分派代码、文档与运行时探索，实施和集成继续由父会话负责。",
-      "metrics": {
-        "taskPerfectionPercent": 110,
-        "implementationCostPercent": 90
-      },
+      "id": "budget-relay",
+      "name": "Budget Relay",
+      "badge": "预算优先 · 有界执行",
+      "description": "适合行为已明确的任务；高不确定性在实施前转交技术集成角色。",
       "translations": {
         "en": {
-          "name": "Sol Explore Relay",
-          "badge": "Read-only exploration · Four roles",
-          "description": "Delegate code, docs, and runtime exploration while implementation and integration stay with the parent."
+          "name": "Budget Relay",
+          "badge": "Budget priority · Bounded execution",
+          "description": "Use for settled behavior; route high uncertainty to technical integration before bounded execution."
         }
       },
-      "sourcePath": "sol-explore-relay",
+      "sourcePath": "budget-relay",
       "readmes": {
         "zh-CN": "README.md",
         "en": "README.en.md"
       },
       "skill": {
-        "source": "skills/sol-explore-relay",
-        "target": ".agents/skills/sol-explore-relay"
+        "source": "skills/budget-relay",
+        "target": ".codex/skills/budget-relay"
       },
       "agents": {
         "source": "agents",
         "target": ".codex/agents",
         "files": [
-          "sol_explore_code.toml",
-          "sol_explore_docs.toml",
-          "sol_explore_runtime.toml",
-          "sol_explore_runtime_deep.toml"
+          "tm_planner.toml",
+          "tm_explorer.toml",
+          "tm_executor.toml",
+          "tm_reviewer.toml",
+          "tm_integrator.toml"
         ]
+      }
+    }
+  ],
+  "retiredRelays": [
+    {
+      "id": "poor-relay",
+      "name": "Poor Relay",
+      "skillTarget": ".agents/skills/poor-relay",
+      "files": {
+        ".agents/skills/poor-relay/SKILL.md": "d103b42dcad2a4932f187b231c00b27b68918c41912ed2db4f45b97b3e22059a",
+        ".agents/skills/poor-relay/agents/openai.yaml": "e033061960ae65360c637f307c92fddd761b4e0890ee4441222abaa4bb02e5c3",
+        ".agents/skills/poor-relay/references/execution-plan.md": "2260947fa2c052353ae02bd258842c46b893592b02c0b82b39fba2d69fefd50c",
+        ".agents/skills/poor-relay/references/runtime-state.md": "20b4160f157abb45453cd15f86417262fa3d776b8be877706a670153a815316f",
+        ".agents/skills/poor-relay/scripts/validate_poor_relay.py": "c499e59a88a34c1f48ac0915223edf78853d5a1ab5c26bcfbd60a1bea6d6c9ae",
+        ".codex/agents/tm_planner.toml": "b1739779102a943389b821846d02953030448ad7672e894a25da0457e9b288cf",
+        ".codex/agents/tm_explorer.toml": "ca28356804cb145c9c3b6ec0bf5280c0ae60237c89dfb72fd377dc51d2883c33",
+        ".codex/agents/tm_executor.toml": "d89ceafabd8b22356574cc4ef9c1dcecbc2b73cbaf62956753d24d3f1e9e8adf",
+        ".codex/agents/tm_reviewer.toml": "6d70acf7d5bb6016030a0b47c85f7c4cedd6b7b73080de122f6480728e627c98",
+        ".codex/agents/tm_integrator.toml": "9f9fdb38447101ba68b4954040d2b173c9873170ae96fc7fb1c2e8dcf6b7a2bf"
+      }
+    },
+    {
+      "id": "sol-pair-relay",
+      "name": "Sol Pair Relay",
+      "skillTarget": ".agents/skills/sol-pair-relay",
+      "files": {
+        ".agents/skills/sol-pair-relay/SKILL.md": "313feb11168bc40f1a680e7bdf35a2ec83f07bd3cb6ebf15b370e656463ebb36",
+        ".agents/skills/sol-pair-relay/agents/openai.yaml": "27ab4dfbaff2c515a4924712cab12e42034585d9fc81b10587013ad0b7d6bb32",
+        ".agents/skills/sol-pair-relay/references/execution-plan.md": "1388304c01489137c9c034079cb83bc5be4e0eb7641f05d0ab0ea50e9eaf615f",
+        ".agents/skills/sol-pair-relay/scripts/validate_sol_pair_relay.py": "3f68bdc65baa42d2e7ec16d0fb2714c59a92815f370a80530090081d2d9e5fee",
+        ".codex/agents/tm_explorer.toml": "484e38779d44b49a076671a9de2ced7a8cf0b9b73f26a2727b09304e1838b9db",
+        ".codex/agents/tm_planner.toml": "6567400a074b3fb9f1de899a4fc43f336b0e75261ea2e3806e1fd4a8303cfd94",
+        ".codex/agents/tm_executor.toml": "a7754698f7b9c77d12e557623b360d1bea330a4b7abf8075a5a2ca48f1c9b576"
+      }
+    },
+    {
+      "id": "sol-led-relay",
+      "name": "Sol-led Relay",
+      "skillTarget": ".agents/skills/sol-led-relay",
+      "files": {
+        ".agents/skills/sol-led-relay/SKILL.md": "2797bdebede88aef1f88cf1111eed1e8105346aabe0caf4a08ff6a6d0238d59d",
+        ".agents/skills/sol-led-relay/agents/openai.yaml": "532cb472ed05998489b0035de2df8378c22b030376b4651b0f3fddfa6fe5471c",
+        ".agents/skills/sol-led-relay/references/contracts.md": "ea751e7290e8820fe37877b304f400e0c928d3e73827c8c3c67c259bdeaf33c5",
+        ".agents/skills/sol-led-relay/references/evaluation.md": "7530d66845c1d97cea498d4cb69035410e96e970a0f0d0a4f188f9eec2dfa61b",
+        ".agents/skills/sol-led-relay/references/routing.md": "a576b8bf641fdae8114332ee184818e4cfd8552c312895d12c86c11291c9588d",
+        ".agents/skills/sol-led-relay/scripts/validate_sol_led_relay.py": "a90c0018e2f2d88cc4dc37f78ec766b0649cf53ce3746cdafd259496f7e8f3a1",
+        ".codex/agents/bounded_executor.toml": "f0a96112d7c737d3fb023be899b684922f78517de85ef138b3079ea2aaf057dc",
+        ".codex/agents/code_explorer.toml": "23cee3361620e586a25646993d8de5692346fd14680537a63d0376a9dfe369c0",
+        ".codex/agents/code_reviewer.toml": "8bad9ca1ae397a2af516b605099d4990a3b7bbf658eaf711798bc71a9a0c95c9",
+        ".codex/agents/docs_researcher.toml": "4d2f2b2ce96de856119c5d0bc93d4d7e3e2569244d969ebce78da082833d8690",
+        ".codex/agents/mechanical_executor.toml": "7f77a2d10d3a43b45b609dddd1adf39dcc7e59b8b372372f46e9a213aba0d2b0",
+        ".codex/agents/minimal_fixer.toml": "03e35e5b13fcf183343148336e9a5776e5f67cff0d419b8e7e56abc264972c6d",
+        ".codex/agents/runtime_investigator.toml": "34a079375f8f8d39cc83f098ef3c573fbbcaa8699a3fb020176efc32cb7e3a99",
+        ".codex/agents/runtime_investigator_deep.toml": "1f7b1e85d18a9046418e90f2ff5ea2b7980e6ea67fa66e2d312a402e15aab1f8",
+        ".codex/agents/verification_reviewer.toml": "e2e4944c6d844f4a93340c24f1dcd021fc121c557a1051479e698bbf0bac4224"
+      }
+    },
+    {
+      "id": "sol-explore-relay",
+      "name": "Sol Explore Relay",
+      "skillTarget": ".agents/skills/sol-explore-relay",
+      "files": {
+        ".agents/skills/sol-explore-relay/SKILL.md": "66a5e63f5e0a6ea6247d72828def522bcbaae0fbd9e0015ab7fbdcc69c757fdf",
+        ".agents/skills/sol-explore-relay/agents/openai.yaml": "899a38a49a0668e28a281339e11a4d1fef2697f8e7b88432fee538179e033b09",
+        ".agents/skills/sol-explore-relay/references/contracts.md": "095c107e9cab6d6224e960c2108cd5c50dc09db63e5b85d5910240320ea47a90",
+        ".agents/skills/sol-explore-relay/references/evaluation.md": "39796269caa34f75ce7127778f07919e85bd569462a59ecafe835cc04502be76",
+        ".agents/skills/sol-explore-relay/references/routing.md": "d446d02854e65b07b6b1552fef5c70e83bf5c207a9475edf3c352ed02d7132aa",
+        ".agents/skills/sol-explore-relay/scripts/validate_sol_explore_relay.py": "94bc19e4fc9f2b6bf0a41bdacb65256028a64bbc8ce361cb33881b8435f52d8a",
+        ".codex/agents/sol_explore_code.toml": "73d48ad1db402525ffac306fa170126824a051de98a7bf8314a67c365856fd8a",
+        ".codex/agents/sol_explore_docs.toml": "fa57eb5899561ae144da50903c17060f68114586797391fae6daae39c4dcc2b3",
+        ".codex/agents/sol_explore_runtime.toml": "0c1a47c98abd4b96110b9c8e816128f053441648c89aaa8cd04ab7746f43a7eb",
+        ".codex/agents/sol_explore_runtime_deep.toml": "60f5b54489854736012ee1c030a712a25d2f7cfee9622e2dd449a467ec09118a"
+      }
+    },
+    {
+      "id": "plan-execute-relay",
+      "name": "Plan Execute Relay",
+      "skillTarget": ".agents/skills/plan-execute-relay",
+      "files": {
+        ".agents/skills/plan-execute-relay/SKILL.md": "537496d2c30ecf6de1db81d7bcfe0e9e16038429ed7894bff3641a8fed82285a",
+        ".agents/skills/plan-execute-relay/agents/openai.yaml": "21b5e6ba1242aa9fec3cf82a2df01f042ac37feed726645a0ef02f79312d9396",
+        ".agents/skills/plan-execute-relay/references/execution-plan.md": "10106e6bd39dcd7c15e52a73d1fbbcc945e81730fbda67bc8367daee4d626c5f",
+        ".agents/skills/plan-execute-relay/scripts/validate_plan_execute_relay.py": "dcd160d3db2be0f32f46e76806c424d16cd04293160a4322e6a83327b437a125",
+        ".codex/agents/tm_executor.toml": "0b16b9ccbdf2619136b32c8640ec3dacf27d6ad2f52554fc6e5c4314b3f0f263",
+        ".codex/agents/tm_explorer.toml": "a408141365b76e6e2caed063601a728a520e95ca31cd30b685be6222408d5b6a",
+        ".codex/agents/tm_planner.toml": "580eac4b800264f17af15cc40cff20cf2d4df1f598c1492019daba0501a378a9"
+      }
+    },
+    {
+      "id": "explore-relay-agents-path",
+      "name": "Explore Relay (legacy skill path)",
+      "skillTarget": ".agents/skills/explore-relay",
+      "files": {
+        ".agents/skills/explore-relay/agents/openai.yaml": "195c797f798d20354c127d516f0b5f94129add7740055c70124a23e50a5597b2",
+        ".agents/skills/explore-relay/references/contracts.md": "3ddd9d9844410ff35954d7c99e0a19794d0d643ccfab0d2cd120cc01046f8a04",
+        ".agents/skills/explore-relay/references/evaluation.md": "1712177bb53ebba1829052adafeb6776e4f8abcfb0448bb11ef6852910bc22dc",
+        ".agents/skills/explore-relay/references/routing.md": "dd6a7a36cf4fca1b0cbc922574c72f6cde9d90a6a72648c655cbbaa9ddd2542a",
+        ".agents/skills/explore-relay/scripts/validate_explore_relay.py": "91145799fc819a960e074e3fc2b368bda3bd3a7c9561d5976e8e66b3fcb382f5",
+        ".agents/skills/explore-relay/SKILL.md": "8016e419f077430d4b9d951561c28dce83086ffce240f921adc1168c5d529052"
+      }
+    },
+    {
+      "id": "implementation-relay-agents-path",
+      "name": "Implementation Relay (legacy skill path)",
+      "skillTarget": ".agents/skills/implementation-relay",
+      "files": {
+        ".agents/skills/implementation-relay/agents/openai.yaml": "a4b0d26417a8451095e7cafaeb1a1201b1798d86b5e0e38ce9c646c2cce1363e",
+        ".agents/skills/implementation-relay/references/contracts.md": "c8a111ae920f6c87ee55ebb6a9edab7f0b0464713a989bcb951a5b9f808f6d86",
+        ".agents/skills/implementation-relay/references/evaluation.md": "3c4f02e1a55764948cb2331e440f8e35fbfc250f00afd0bc3e47e6d0167a0eb6",
+        ".agents/skills/implementation-relay/references/routing.md": "adc6e9e8fc29b9c95ac329cd007d962f6770850de80bf0bd133bf521e11cdc4a",
+        ".agents/skills/implementation-relay/scripts/validate_implementation_relay.py": "5b4b6cf7324d5daf94bcfb249f44801ea8cfa42dbdc0ea46dbf81a3e1c6fc2e1",
+        ".agents/skills/implementation-relay/SKILL.md": "c017698d14c14fbdaaa2a56c6e4026e8289bdd5bee208ce83a58e71786df83c6"
+      }
+    },
+    {
+      "id": "budget-relay-agents-path",
+      "name": "Budget Relay (legacy skill path)",
+      "skillTarget": ".agents/skills/budget-relay",
+      "files": {
+        ".agents/skills/budget-relay/agents/openai.yaml": "977b4b6018bb53c627ca99a55cd64c8c0d460a1f722b64b7781b5f63648fc4ff",
+        ".agents/skills/budget-relay/references/execution-plan.md": "418ac3f975509ad66018493c00f296892c137e30ab4e986ca66e9cefc952ad08",
+        ".agents/skills/budget-relay/references/runtime-state.md": "babe9d748b061a1ee672c6bd8097b83e33f50b804face723e852726020bb95b8",
+        ".agents/skills/budget-relay/scripts/validate_budget_relay.py": "4c79463ef19f152ebad854dcd4a9aced0dd9f8d6cc6aa413cc5e99d9d533ae11",
+        ".agents/skills/budget-relay/SKILL.md": "9c1abe5676caccad2838477e9f342f83a1ed236962a9f09bb1ea887786c4707b"
       }
     }
   ]

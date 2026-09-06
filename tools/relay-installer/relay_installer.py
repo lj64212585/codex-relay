@@ -80,8 +80,6 @@ class RelayDefinition:
     name: str
     badge: str
     description: str
-    task_perfection_percent: int
-    implementation_cost_percent: int
     translations: dict[str, dict[str, str]]
     source_dir: Path
     readme_sources: dict[str, Path]
@@ -97,10 +95,6 @@ class RelayDefinition:
             "name": self.name,
             "badge": self.badge,
             "description": self.description,
-            "metrics": {
-                "taskPerfectionPercent": self.task_perfection_percent,
-                "implementationCostPercent": self.implementation_cost_percent,
-            },
             "translations": self.translations,
             "readmeLocales": sorted(self.readme_sources),
             "agentCount": len(self.agent_files),
@@ -115,10 +109,19 @@ class RelayDefinition:
 
 
 @dataclass(frozen=True)
+class RetiredRelay:
+    relay_id: str
+    name: str
+    skill_target: Path
+    files: dict[str, str]
+
+
+@dataclass(frozen=True)
 class InstallerConfig:
     config_path: Path
     source_root: Path
     relays: tuple[RelayDefinition, ...]
+    retired_relays: tuple[RetiredRelay, ...] = ()
 
     def relay_by_id(self, relay_id: str) -> RelayDefinition:
         for relay in self.relays:
@@ -175,17 +178,40 @@ def _require_dict(container: dict[str, Any], key: str, label: str) -> dict[str, 
     return value
 
 
-def _require_percentage(
-    container: dict[str, Any],
-    key: str,
-    label: str,
-) -> int:
-    value = container.get(key)
-    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
-        raise ConfigError(
-            f"{label}.{key} 必须是非负整数；相对估值允许高于 100。"
+def _load_retired_relays(
+    raw: dict[str, Any], active_ids: set[str]
+) -> tuple[RetiredRelay, ...]:
+    entries = raw.get("retiredRelays", [])
+    if not isinstance(entries, list):
+        raise ConfigError("retiredRelays 必须是数组。")
+    result = []
+    seen = set(active_ids)
+    for entry in entries:
+        if not isinstance(entry, dict):
+            raise ConfigError("retiredRelays 条目必须是对象。")
+        relay_id = _require_string(entry, "id", "retiredRelays")
+        if relay_id in seen or not RELAY_ID_PATTERN.fullmatch(relay_id):
+            raise ConfigError("退役 Relay id 重复或无效。")
+        seen.add(relay_id)
+        skill = Path(_require_string(entry, "skillTarget", relay_id))
+        _validate_relative_target(skill, relay_id)
+        if skill.parts[:2] != (".agents", "skills") or len(skill.parts) != 3:
+            raise ConfigError("退役 Skill 路径必须位于 .agents/skills/<name>。")
+        files = _require_dict(entry, "files", relay_id)
+        if not files:
+            raise ConfigError("退役 Relay 必须提供文件指纹。")
+        for relative, digest in files.items():
+            path = Path(relative)
+            _validate_relative_target(path, relay_id)
+            is_agent = path.parts[:2] == (".codex", "agents") and len(path.parts) == 3
+            if not (path.is_relative_to(skill) or is_agent):
+                raise ConfigError("退役文件路径超出 Skill / Agent 范围。")
+            if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+                raise ConfigError("退役文件 SHA-256 无效。")
+        result.append(
+            RetiredRelay(relay_id, _require_string(entry, "name", relay_id), skill, files)
         )
-    return value
+    return tuple(result)
 
 
 def _load_translations(
@@ -287,7 +313,6 @@ def load_installer_config(config_path: Path) -> InstallerConfig:
 
         source_path = _require_string(raw_relay, "sourcePath", label)
         source_dir = _resolve_under(source_root, source_path, f"{label}.sourcePath")
-        metrics = _require_dict(raw_relay, "metrics", label)
         skill = _require_dict(raw_relay, "skill", label)
         agents = _require_dict(raw_relay, "agents", label)
 
@@ -329,16 +354,6 @@ def load_installer_config(config_path: Path) -> InstallerConfig:
             name=_require_string(raw_relay, "name", label),
             badge=_require_string(raw_relay, "badge", label),
             description=_require_string(raw_relay, "description", label),
-            task_perfection_percent=_require_percentage(
-                metrics,
-                "taskPerfectionPercent",
-                f"{label}.metrics",
-            ),
-            implementation_cost_percent=_require_percentage(
-                metrics,
-                "implementationCostPercent",
-                f"{label}.metrics",
-            ),
             translations=_load_translations(raw_relay, label),
             source_dir=source_dir,
             readme_sources=_load_readmes(raw_relay, source_dir, label),
@@ -355,6 +370,7 @@ def load_installer_config(config_path: Path) -> InstallerConfig:
         config_path=resolved_config,
         source_root=source_root,
         relays=tuple(relays),
+        retired_relays=_load_retired_relays(payload, relay_ids),
     )
 
 
@@ -595,6 +611,50 @@ class RelayInstallerService:
             "targets": targets,
         }
 
+    def _detect_retired(
+        self, target_root: Path
+    ) -> tuple[list[dict[str, Any]], list[Path]]:
+        detections = []
+        unsafe = []
+        for relay in self.config.retired_relays:
+            skill = _resolve_under(target_root, relay.skill_target, "退役 Skill")
+            matching = []
+            mismatching = []
+            for relative, digest in relay.files.items():
+                path = _resolve_under(target_root, relative, "退役文件")
+                if path.exists():
+                    matches = path.is_file() and hashlib.sha256(
+                        path.read_bytes().replace(b"\r\n", b"\n")
+                    ).hexdigest() == digest
+                    if matches:
+                        matching.append(path)
+                    else:
+                        mismatching.append(path)
+            if not skill.exists() and not matching:
+                continue
+            # Without the old Skill, only exact orphan fingerprints establish ownership.
+            paths = list(matching)
+            if skill.exists():
+                known = set(relay.files)
+                extra = (
+                    [
+                        p for p in skill.rglob("*")
+                        if p.is_file() and p.relative_to(target_root).as_posix() not in known
+                    ]
+                    if skill.is_dir() else [skill]
+                )
+                if mismatching or extra:
+                    unsafe.extend([*mismatching, *extra])
+                else:
+                    paths.append(skill)
+            detections.append({
+                "relay": relay,
+                "present": True,
+                "status": "retired",
+                "paths": _minimal_paths(paths),
+            })
+        return detections, _minimal_paths(unsafe)
+
     def _inspect_raw(
         self,
         *,
@@ -607,6 +667,8 @@ class RelayInstallerService:
         detections = [
             self._detect_relay(relay, target_root) for relay in self.config.relays
         ]
+        retired, retired_unsafe = self._detect_retired(target_root)
+        detections.extend(retired)
         selected_detection = next(
             detection
             for detection in detections
@@ -641,7 +703,7 @@ class RelayInstallerService:
             "selectedRelay": selected_relay,
             "selectedDetection": selected_detection,
             "conflicts": conflicts,
-            "unmanagedCollisions": _minimal_paths(unmanaged_collisions),
+            "unmanagedCollisions": _minimal_paths([*unmanaged_collisions, *retired_unsafe]),
         }
 
     @staticmethod
@@ -708,6 +770,13 @@ class RelayInstallerService:
             for relay in self.config.relays
             if (detection := self._detect_relay(relay, target_root))["present"]
         ]
+        retired, retired_unsafe = self._detect_retired(target_root)
+        if retired_unsafe:
+            raise UnsafeCollisionError(
+                "旧版 Relay 含自定义或无法确认归属的文件，请先核对："
+                + ", ".join(map(str, retired_unsafe))
+            )
+        installations.extend(retired)
         active_paths = _minimal_paths(
             [
                 path
